@@ -1,0 +1,31 @@
+{
+  "generator-jhipster": {
+    "jhipsterVersion": "3.0.0",
+    "baseName": "Bookster2",
+    "packageName": "io.bookster",
+    "packageFolder": "io/bookster",
+    "serverPort": "8080",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "buildTool": "gradle",
+    "enableSocialSignIn": false,
+    "rememberMeKey": "f43cc87f19169f7d837549b08d0e5265f4d965dc",
+    "useSass": true,
+    "applicationType": "monolith",
+    "testFrameworks": [
+      "cucumber"
+    ],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en",
+      "de"
+    ]
+  }
+}
