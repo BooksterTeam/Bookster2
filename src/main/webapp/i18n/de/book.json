@@ -1,0 +1,28 @@
+{
+    "bookster2App": {
+        "book" : {
+            "home": {
+                "title": "Books",
+                "createLabel": "Book erstellen",
+                "createOrEditLabel": "Book erstellen oder bearbeiten",
+                "search": "Suche nach Book"
+            },
+            "created": "Book erstellt mit ID {{ param }}",
+            "updated": "Book aktualisiert mit ID {{ param }}",
+            "deleted": "Book gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Book {{ id }} wirklich dauerhaft gejöscht werden?"
+            },
+            "detail": {
+                "title": "Book"
+            },
+            "isbn": "Isbn",
+            "title": "Title",
+            "subtitle": "Subtitle",
+            "year": "Year",
+            "bookAuthor": "BookAuthor",
+            "copie": "Copie",
+            "bookTag": "BookTag"
+        }
+    }
+}

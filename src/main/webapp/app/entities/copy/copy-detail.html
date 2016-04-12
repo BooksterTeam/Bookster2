@@ -1,0 +1,33 @@
+
+<div>
+    <h2><span translate="bookster2App.copy.detail.title">Copy</span> {{vm.copy.id}}</h2>
+    <hr>
+    <dl class="dl-horizontal">
+        <dt><span translate="bookster2App.copy.verified">Verified</dt></dt>
+        <dd>
+            <span>{{vm.copy.verified}}<span>
+        </dd>
+        <hr>
+        <dt><span translate="bookster2App.copy.available">Available</dt></dt>
+        <dd>
+            <span>{{vm.copy.available}}<span>
+        </dd>
+        <hr>
+        <dt><span translate="bookster2App.copy.book">book</span></dt>
+        <dd>
+            <a ui-sref="book-detail({id:vm.copy.book.id})">{{vm.copy.book.id}}</a>
+        </dd>
+        <hr>
+        <dt><span translate="bookster2App.copy.owner">owner</span></dt>
+        <dd>
+            <a ui-sref="bookster-user-detail({id:vm.copy.owner.id})">{{vm.copy.owner.id}}</a>
+        </dd>
+        <hr>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,26 @@
+{
+    "bookster2App": {
+        "copy" : {
+            "home": {
+                "title": "Copies",
+                "createLabel": "Create a new Copy",
+                "createOrEditLabel": "Create or edit a Copy",
+                "search": "Search for Copy"
+            },
+            "created": "A new Copy is created with identifier {{ param }}",
+            "updated": "A Copy is updated with identifier {{ param }}",
+            "deleted": "A Copy is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Copy {{ id }}?"
+            },
+            "detail": {
+                "title": "Copy"
+            },
+            "verified": "Verified",
+            "available": "Available",
+            "book": "Book",
+            "lending": "Lending",
+            "owner": "Owner"
+        }
+    }
+}

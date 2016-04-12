@@ -1,0 +1,11 @@
+{
+    "bookster2App": {
+        "RequestStatus" : {
+            "null": "",
+            "PENDING": "PENDING",
+            "CANCELED": "CANCELED",
+            "ACCEPTED": "ACCEPTED",
+            "REJECTED": "REJECTED"
+        }
+    }
+}

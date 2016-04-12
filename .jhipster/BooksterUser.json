@@ -1,0 +1,31 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "copie",
+      "otherEntityName": "copy",
+      "otherEntityRelationshipName": "owner"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "one-to-many",
+      "relationshipName": "lending",
+      "otherEntityName": "lending",
+      "otherEntityRelationshipName": "holder"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "one-to-many",
+      "relationshipName": "lendingRequest",
+      "otherEntityName": "lendingRequest",
+      "otherEntityRelationshipName": "fromUser"
+    }
+  ],
+  "fields": [],
+  "changelogDate": "20160412123935",
+  "dto": "no",
+  "pagination": "pager",
+  "service": "serviceClass",
+  "entityTableName": "bookster_user"
+}

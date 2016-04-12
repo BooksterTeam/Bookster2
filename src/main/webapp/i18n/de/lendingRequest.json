@@ -1,0 +1,25 @@
+{
+    "bookster2App": {
+        "lendingRequest" : {
+            "home": {
+                "title": "LendingRequests",
+                "createLabel": "LendingRequest erstellen",
+                "createOrEditLabel": "LendingRequest erstellen oder bearbeiten",
+                "search": "Suche nach LendingRequest"
+            },
+            "created": "LendingRequest erstellt mit ID {{ param }}",
+            "updated": "LendingRequest aktualisiert mit ID {{ param }}",
+            "deleted": "LendingRequest gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll LendingRequest {{ id }} wirklich dauerhaft gejöscht werden?"
+            },
+            "detail": {
+                "title": "LendingRequest"
+            },
+            "date": "Date",
+            "status": "Status",
+            "lending": "Lending",
+            "fromUser": "FromUser"
+        }
+    }
+}
