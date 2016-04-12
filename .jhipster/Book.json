@@ -1,0 +1,59 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-many",
+      "relationshipName": "bookAuthor",
+      "otherEntityName": "author",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "one-to-many",
+      "relationshipName": "copie",
+      "otherEntityName": "copy",
+      "otherEntityRelationshipName": "book"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "one-to-many",
+      "relationshipName": "bookTag",
+      "otherEntityName": "tag",
+      "otherEntityRelationshipName": "book"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "isbn",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "subtitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "year",
+      "fieldType": "Integer"
+    }
+  ],
+  "changelogDate": "20160412123934",
+  "dto": "no",
+  "pagination": "pager",
+  "service": "serviceClass",
+  "entityTableName": "book"
+}

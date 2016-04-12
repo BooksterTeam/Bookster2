@@ -1,0 +1,69 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myLendingRequestLabel" translate="bookster2App.lendingRequest.home.createOrEditLabel">Create or edit a LendingRequest</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.lendingRequest.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="bookster2App.lendingRequest.date" for="field_date">Date</label>
+                <div class="input-group">
+                    <input id="field_date" type="text" class="form-control" name="date" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lendingRequest.date" is-open="vm.datePickerOpenStatus.date"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.date.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.date.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="bookster2App.lendingRequest.status" for="field_status">Status</label>
+            <select class="form-control" name="status" ng-model="vm.lendingRequest.status" id="field_status" required>
+                <option value="PENDING" translate="bookster2App.RequestStatus.PENDING">PENDING</option>
+                <option value="CANCELED" translate="bookster2App.RequestStatus.CANCELED">CANCELED</option>
+                <option value="ACCEPTED" translate="bookster2App.RequestStatus.ACCEPTED">ACCEPTED</option>
+                <option value="REJECTED" translate="bookster2App.RequestStatus.REJECTED">REJECTED</option>
+            </select>
+            <div ng-show="editForm.status.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.status.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="bookster2App.lendingRequest.lending" for="field_lending">lending</label>
+            <select class="form-control" id="field_lending" name="lending" ng-model="vm.lendingRequest.lending" ng-options="lending as lending.id for lending in vm.lendings | orderBy:'id' track by lending.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="bookster2App.lendingRequest.fromUser" for="field_fromUser">fromUser</label>
+            <select class="form-control" id="field_fromUser" name="fromUser" ng-model="vm.lendingRequest.fromUser" ng-options="booksterUser as booksterUser.id for booksterUser in vm.booksterusers track by booksterUser.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,26 @@
+{
+    "bookster2App": {
+        "copy" : {
+            "home": {
+                "title": "Copies",
+                "createLabel": "Copy erstellen",
+                "createOrEditLabel": "Copy erstellen oder bearbeiten",
+                "search": "Suche nach Copy"
+            },
+            "created": "Copy erstellt mit ID {{ param }}",
+            "updated": "Copy aktualisiert mit ID {{ param }}",
+            "deleted": "Copy gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Copy {{ id }} wirklich dauerhaft gejöscht werden?"
+            },
+            "detail": {
+                "title": "Copy"
+            },
+            "verified": "Verified",
+            "available": "Available",
+            "book": "Book",
+            "lending": "Lending",
+            "owner": "Owner"
+        }
+    }
+}

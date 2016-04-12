@@ -1,0 +1,24 @@
+{
+    "bookster2App": {
+        "booksterUser" : {
+            "home": {
+                "title": "BooksterUsers",
+                "createLabel": "Create a new BooksterUser",
+                "createOrEditLabel": "Create or edit a BooksterUser",
+                "search": "Search for BooksterUser"
+            },
+            "created": "A new BooksterUser is created with identifier {{ param }}",
+            "updated": "A BooksterUser is updated with identifier {{ param }}",
+            "deleted": "A BooksterUser is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete BooksterUser {{ id }}?"
+            },
+            "detail": {
+                "title": "BooksterUser"
+            },
+            "copie": "Copie",
+            "lending": "Lending",
+            "lendingRequest": "LendingRequest"
+        }
+    }
+}
