@@ -1,0 +1,73 @@
+entity Author {
+  forename String,
+  surname String
+}
+
+enum RequestStatus{
+ PENDING, CANCELED, ACCEPTED, REJECTED
+}
+
+entity Book {
+  isbn String required,
+  title String required,
+  subtitle String,
+  year Integer,
+}
+
+entity BooksterUser {
+}
+
+entity Copy{
+ verified Boolean required,
+ available Boolean required
+}
+
+entity Tag{
+	name String required
+}
+
+entity Lending{
+  fromDate LocalDate required,
+  dueDate LocalDate required
+}
+
+entity LendingRequest{
+  date LocalDate required,
+  status RequestStatus required
+}
+
+relationship ManyToMany{
+  Book{bookAuthor} to Author{writtenBook}
+}
+relationship OneToOne{
+  LendingRequest{lending} to Lending{lendingRequest}
+}
+
+relationship OneToMany{
+ BooksterUser{copie} to Copy{owner}
+}
+
+relationship OneToMany{
+ BooksterUser{lending} to Lending{holder}
+}
+
+relationship OneToMany{
+ BooksterUser{lendingRequest} to LendingRequest{fromUser}
+}
+
+relationship OneToMany{
+ Book{copie} to Copy
+}
+
+relationship OneToMany{
+  Book{bookTag} to Tag
+}
+
+relationship OneToMany{
+  Copy{lending} to Lending{copie}
+}
+
+paginate all with pager
+//dto all with mapstruct
+
+service all with serviceClass
