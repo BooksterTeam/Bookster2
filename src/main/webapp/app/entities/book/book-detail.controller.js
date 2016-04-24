@@ -5,9 +5,9 @@
         .module('bookster2App')
         .controller('BookDetailController', BookDetailController);
 
-    BookDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Book', 'Author', 'Copy', 'Tag'];
+    BookDetailController.$inject = ['$location','$log','$scope', '$rootScope', '$stateParams', 'entity', 'Book', 'Author', 'Copy', 'Tag'];
 
-    function BookDetailController($scope, $rootScope, $stateParams, entity, Book, Author, Copy, Tag) {
+    function BookDetailController($location, $log, $scope, $rootScope, $stateParams, entity, Book, Author, Copy, Tag) {
         var vm = this;
         vm.book = entity;
         vm.load = function (id) {
@@ -15,6 +15,9 @@
                 vm.book = result;
             });
         };
+        //Following lines are needed if book is not found to display the typed id
+        var path = $location.path();
+        vm.fakeid = path.replace('/book/', '');
         var unsubscribe = $rootScope.$on('bookster2App:bookUpdate', function(event, result) {
             vm.book = result;
         });

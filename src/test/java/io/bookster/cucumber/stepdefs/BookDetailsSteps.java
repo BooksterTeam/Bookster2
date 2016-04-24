@@ -22,7 +22,6 @@ public class BookDetailsSteps extends BaseDriverIntegration {
 
     private WebDriver browser;
 
-
     @Given("^user authenticated and navigated to the market$")
     public void userIsAdminAndNavigatedToTheMarket() throws Throwable {
         browser = webDriver();
@@ -33,11 +32,11 @@ public class BookDetailsSteps extends BaseDriverIntegration {
     @When("^user lookup a book with id '(\\d+)'$")
     public void userLookupABookWithId(int bookid
     ) throws Throwable {
-        browser.get(server + "market");
+        WebElement marketButton =browser.findElement(id("market"));
+        marketButton.click();
         Thread.sleep(500);
         WebElement detailsButton = browser.findElement(id("details" + bookid));
         detailsButton.click();
-
     }
 
     @Then("^the title of the book is 'Master Software Engineering'$")

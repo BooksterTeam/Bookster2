@@ -1,40 +1,50 @@
-
 <div>
+    <div ng-show="vm.book.id == null">
+        <div id="book-not-found" class="alert alert-danger" ng-show="vm.book.id == null">
+            Book with id <strong>({{vm.fakeid}})</strong> does not exist.
+        </div>
+    </div>
+    <div id="book-found" ng-show="vm.book.id != null">
     <h2><span translate="bookster2App.book.detail.title">Book</span> {{vm.book.id}}</h2>
-    <hr>
-    <dl class="dl-horizontal">
-        <dt><span translate="bookster2App.book.isbn">Isbn</dt></dt>
-        <dd>
-            <span>{{vm.book.isbn}}<span>
-        </dd>
         <hr>
-        <dt><span translate="bookster2App.book.title">Title</dt></dt>
-        <dd>
-            <span>{{vm.book.title}}<span>
-        </dd>
-        <hr>
-        <dt><span translate="bookster2App.book.subtitle">Subtitle</dt></dt>
-        <dd>
+        <dl class="dl-horizontal">
+            <dt><span translate="bookster2App.book.isbn">Isbn</dt>
+            </dt>
+            <dd>
+            <span id="book-isbn">{{vm.book.isbn}}<span>
+            </dd>
+            <hr>
+            <dt><span translate="bookster2App.book.title">Title</dt>
+            </dt>
+            <dd>
+            <span id="book-title">{{vm.book.title}}<span>
+            </dd>
+            <hr>
+            <dt><span translate="bookster2App.book.subtitle">Subtitle</dt>
+            </dt>
+            <dd>
             <span>{{vm.book.subtitle}}<span>
-        </dd>
-        <hr>
-        <dt><span translate="bookster2App.book.year">Year</dt></dt>
-        <dd>
+            </dd>
+            <hr>
+            <dt><span translate="bookster2App.book.year">Year</dt>
+            </dt>
+            <dd>
             <span>{{vm.book.year}}<span>
-        </dd>
-        <hr>
-        <dt><span translate="bookster2App.book.bookAuthor">bookAuthor</span></dt>
-        <dd>
+            </dd>
+            <hr>
+            <dt><span translate="bookster2App.book.bookAuthor">bookAuthor</span></dt>
+            <dd>
             <span ng-repeat="bookAuthor in vm.book.bookAuthors">
                 <a ui-sref="author-detail({id: {{bookAuthor.id}}})">{{bookAuthor.id}}</a>{{$last ? '' : ', '}}
             </span>
-        </dd>
-        <hr>
-    </dl>
+            </dd>
+            <hr>
+        </dl>
 
-    <button type="submit"
-            onclick="window.history.back()"
-            class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
-    </button>
+        <button type="submit"
+                onclick="window.history.back()"
+                class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+        </button>
+    </div>
 </div>
