@@ -5,9 +5,9 @@
         .controller('MarketController', MarketController)
         .filter;
 
-    MarketController.$inject = ['$scope', '$state', 'Book', 'BookSearch', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    MarketController.$inject = ['$scope', '$state', 'Book', 'Market', 'BookSearch', 'ParseLinks', 'AlertService'];
     
-    function MarketController ($scope, $state, Book, BookSearch, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function MarketController ($scope, $state, Market, Book, BookSearch, ParseLinks, AlertService) {
         var vm = this;
         $scope.books = [];
         $scope.query = '';
