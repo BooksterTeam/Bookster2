@@ -35,6 +35,9 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
             'src/main/webapp/bower_components/sockjs-client/dist/sockjs.js',
             'src/main/webapp/bower_components/stomp-websocket/lib/stomp.min.js',
+            'src/main/webapp/bower_components/bootstrap/dist/js/bootstrap.js',
+            'src/main/webapp/bower_components/bootstrap-material-design/dist/js/material.js',
+            'src/main/webapp/bower_components/bootstrap-material-design/dist/js/ripples.js',
             'src/main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'src/main/webapp/app/app.module.js',

@@ -16,7 +16,7 @@ import static org.openqa.selenium.By.id;
  */
 public class BaseDriverIntegration {
 
-    protected final String server = "http://localhost:3000/#/";
+    protected final String server = "http://localhost:8080/#/";
 
     private WebDriver browser;
 
