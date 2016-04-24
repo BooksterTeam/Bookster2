@@ -61,6 +61,10 @@
                                  constraintName="fk_book_book_author_book_id"
                                  referencedColumnNames="id"
                                  referencedTableName="author"/>
-        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/books.csv"
+                  separator=";"
+                  tableName="book">
+        </loadData>
     </changeSet>
 </databaseChangeLog>

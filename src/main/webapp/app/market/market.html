@@ -1,0 +1,42 @@
+<div>
+    <h1 class="text-center" translate="market.title">Bookster - Market</h1>
+    Search: <input id="book-query" ng-model="query">
+    <div class="row" id="book-market">
+
+        <div class="col-xs-6 col-md-3" ng-repeat="book in books | filter:query">
+            <div class="thumbnail bookthumbnail">
+            <img class="bookimage" ng-src="../../content/images/defaultbook.png"/>
+                <div class="caption">
+                    <h4 ng-mouseover="book.title">{{book.title | limitTo:25}}</h4>
+                    <button type="submit"
+                            ui-sref="book-detail({id:book.id})"
+                            class="btn btn-info btn-sm"
+                    id="details{{book.id}}">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+                    </button>
+                    <!--
+                    <button type="submit"
+                            ui-sref="book.edit({id:book.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(book.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                    -->
+                </div>
+                <!--<img ng-show = {{entry.image}} class="bookimage" ng-src="{{entry.image}}" />-->
+                <!--<img ng-show = {{!entry.image}} class="bookimage" ng-src="{{entry.author.picture}}" />-->
+                <!--<div class="caption">-->
+                    <!--<h4><a ng-href="{{entry.link}}">{{entry.headline |limitTo: 30}} ...</a></h4>-->
+                    <!--<h5><a ng-href="http://www.freecodecamp.com/{{entry.author.username}}">by {{entry.author.username}} </a> - Upvotes: {{entry.upVotes.length}}</h5>-->
+                    <!--<p>{{entry.metaDescription |limitTo: 70}} ...</p>-->
+                    <!--<p>Posted on: {{entry.timePosted | date:"MM/dd/yyyy"}}</p>-->
+                <!--</div>-->
+            </div>
+        </div>
+
+    </div>
+</div>
