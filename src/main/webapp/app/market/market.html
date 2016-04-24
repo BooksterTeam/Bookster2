@@ -1,42 +1,69 @@
 <div>
-    <h1 class="text-center" translate="market.title">Bookster - Market</h1>
-    Search: <input id="book-query" ng-model="query">
-    <div class="row" id="book-market">
+    <h2>Market</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
 
-        <div class="col-xs-6 col-md-3" ng-repeat="book in books | filter:query">
-            <div class="thumbnail bookthumbnail">
-            <img class="bookimage" ng-src="../../content/images/defaultbook.png"/>
-                <div class="caption">
-                    <h4 ng-mouseover="book.title">{{book.title | limitTo:25}}</h4>
-                    <button type="submit"
-                            ui-sref="book-detail({id:book.id})"
-                            class="btn btn-info btn-sm"
-                    id="details{{book.id}}">
-                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
-                    </button>
-                    <!--
-                    <button type="submit"
-                            ui-sref="book.edit({id:book.id})"
-                            class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
-                    </button>
-                    <button type="submit"
-                            ng-click="delete(book.id)"
-                            class="btn btn-danger btn-sm">
-                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
-                    </button>
-                    -->
-                </div>
-                <!--<img ng-show = {{entry.image}} class="bookimage" ng-src="{{entry.image}}" />-->
-                <!--<img ng-show = {{!entry.image}} class="bookimage" ng-src="{{entry.author.picture}}" />-->
-                <!--<div class="caption">-->
-                    <!--<h4><a ng-href="{{entry.link}}">{{entry.headline |limitTo: 30}} ...</a></h4>-->
-                    <!--<h5><a ng-href="http://www.freecodecamp.com/{{entry.author.username}}">by {{entry.author.username}} </a> - Upvotes: {{entry.upVotes.length}}</h5>-->
-                    <!--<p>{{entry.metaDescription |limitTo: 70}} ...</p>-->
-                    <!--<p>Posted on: {{entry.timePosted | date:"MM/dd/yyyy"}}</p>-->
-                <!--</div>-->
+        <form class="form-inline">
+            <div class="inner-addon left-addon" style="width: 500px">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="text" class="form-control" ng-model="query" id="book-query"
+                       placeholder="{{ 'market.search' | translate }}">
             </div>
-        </div>
+        </form>
+        <!--
+        <div class="input-group pull-right" >
 
+            <span  class="input-group-btn width-min" >
+                <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+            <span class="input-group-btn width-min" ng-if="vm.currentSearch">
+                <button class="btn btn-info" ng-click="vm.clear()">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </span>
+            -->
     </div>
+</div>
+</div>
+<!--Search: <input id="book-query" ng-model="query">-->
+<div class="row" id="book-market">
+
+    <div class="col-xs-6 col-md-3" ng-repeat="book in books | filter:query">
+        <div class="thumbnail bookthumbnail">
+            <img class="bookimage" ng-src="../../content/images/defaultbook.png"/>
+            <div class="caption">
+                <h4 ng-mouseover="book.title">{{book.title | limitTo:25}}</h4>
+                <button type="submit"
+                        ui-sref="book-detail({id:book.id})"
+                        class="btn btn-info btn-sm"
+                        id="details{{book.id}}">
+                    <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+                </button>
+                <!--
+                <button type="submit"
+                        ui-sref="book.edit({id:book.id})"
+                        class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                </button>
+                <button type="submit"
+                        ng-click="delete(book.id)"
+                        class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                </button>
+                -->
+            </div>
+            <!--<img ng-show = {{entry.image}} class="bookimage" ng-src="{{entry.image}}" />-->
+            <!--<img ng-show = {{!entry.image}} class="bookimage" ng-src="{{entry.author.picture}}" />-->
+            <!--<div class="caption">-->
+            <!--<h4><a ng-href="{{entry.link}}">{{entry.headline |limitTo: 30}} ...</a></h4>-->
+            <!--<h5><a ng-href="http://www.freecodecamp.com/{{entry.author.username}}">by {{entry.author.username}} </a> - Upvotes: {{entry.upVotes.length}}</h5>-->
+            <!--<p>{{entry.metaDescription |limitTo: 70}} ...</p>-->
+            <!--<p>Posted on: {{entry.timePosted | date:"MM/dd/yyyy"}}</p>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+</div>
 </div>
