@@ -4,6 +4,9 @@ import org.apache.commons.lang.SystemUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -49,6 +52,14 @@ public class BaseDriverIntegration {
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setJavascriptEnabled(true);
         ChromeDriver driver = new ChromeDriver(capabilities);
+        driver.manage().window().maximize();
+        return driver;
+    }
+
+    private WebDriver firefoxDriver(){
+        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        capabilities.setJavascriptEnabled(true);
+        FirefoxDriver driver = new FirefoxDriver(capabilities);
         driver.manage().window().maximize();
         return driver;
     }
