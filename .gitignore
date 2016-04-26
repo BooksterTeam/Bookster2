@@ -132,3 +132,6 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+###
+src/test/resources/driver/mac
