@@ -23,6 +23,10 @@ public class RequestFactory {
         return new AcceptRequest();
     }
 
+    public static Request rejectRequest(){
+        return new RejectRequest();
+    }
+
 
     public static RequestFactory getRequestFactory() {
         return requestFactory;

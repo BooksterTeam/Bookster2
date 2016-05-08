@@ -6,15 +6,10 @@ import io.bookster.domain.LendingRequest;
  * Created on 08/05/16
  * author: nixoxo
  */
-public class AcceptRequest implements Request {
-
-    public AcceptRequest(){
-
-    }
-
+public class RejectRequest implements Request {
     @Override
     public LendingRequest process(LendingRequest lendingRequest) {
-        lendingRequest.setStatus(RequestStatus.ACCEPTED);
+        lendingRequest.setStatus(RequestStatus.REJECTED);
         return lendingRequest;
     }
 }
