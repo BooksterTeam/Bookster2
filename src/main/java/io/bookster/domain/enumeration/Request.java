@@ -8,6 +8,6 @@ import io.bookster.domain.LendingRequest;
  */
 public interface Request {
 
-    public LendingRequest process(LendingRequest lr);
+    public LendingRequest process(LendingRequest lendingRequest);
 
 }
