@@ -19,6 +19,10 @@ public class RequestFactory {
         return new CancelRequest();
     }
 
+    public static Request acceptRequest(){
+        return new AcceptRequest();
+    }
+
 
     public static RequestFactory getRequestFactory() {
         return requestFactory;
