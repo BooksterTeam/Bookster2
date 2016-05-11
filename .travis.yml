@@ -12,6 +12,10 @@ addons:
   sauce_connect: true
 
 before_install:
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
+  - sudo apt-get update -qq
+  - sudo dpkg -i ./google-chrome*.deb
+  - sudo apt-get -f install
   - npm install -g grunt-cli
   - npm install -g bower
   - npm install -g tsd
