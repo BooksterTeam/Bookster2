@@ -9,13 +9,9 @@ env:
     - secure: kWYqUiO9op6e5u+5ygCSfUVnuTVvXuLYETnllCB5tqcbDN2bO+HUJiS48yA+944KpbnhGVT+6sv1eCwTkrKdTZ7pNmun9IzBIRCrelW+duOv4YCSEYe0mVBUWk7qIDimaSeOLt9Ifz1EsWCJSh+09j9sdaIUbzBmTnNBErl3Jkw3hvBpvR0QFftI8PB3M3w6b4DFr2rR5cRTwAIL06I/awLA+U4/EGZ3zI5gIXTO/08GJebLaGKTjD5gO0nVHT0gptKvJxLfMjUiEZwc3e5DZKq+SMClxmWcw285HPziRlqiYi8MXFU4zVPS6hCDrvmWEIbhS0DNh4yq9johkw3CBuCQAznNlGGXX21boC4g+RP0+WrdgUMT3uN/5LFm4Jw0EroYrjXmP/wnyCxBRDkqINBYgdGU8KnnuTSm/oaAVA/1iuTEaOXuM8foGnbkP/QJOzWsKgK4feYi6xMsyMHTtxwZWiLgpX4Ozp1szmsRjSLyWPRbdca1SBEzIkoJ0bRncuRRJ1MhEeX8qbEFmht8sD/CzxtDX4O1EhvJiYqe/3nwge2HLM2oqPkdXRN0527XZVJD8IG0O7qrCQqilisGHaDUNhtkWwKMvHc9qpHbxEGj5g3fvafPX82D1DwlAfViQGkAlku2yg0C/NMRApPJgPZrKdCOKPp2cEe9T6Imvrk=
 
 addons:
-  sauce_connect: true
+  - selenium
 
 before_install:
-  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-  - sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-  - sudo apt-get update
-  - sudo apt-get install google-chrome-stable
   - npm install -g grunt-cli
   - npm install -g bower
   - npm install -g tsd
