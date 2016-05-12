@@ -205,3 +205,14 @@ task wrapper(type: Wrapper) {
 
 task stage(dependsOn: 'bootRepackage') {
 }
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://193.196.7.25/"
+        property "sonar.projectName", "bookster2"
+        property "sonar.projectVersions", "1.0.0"
+        property "sonar.sources", "src/main/java/io/bookster"
+        property "sourceEncoding", "UTF-8"
+        //property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+    }
+}
