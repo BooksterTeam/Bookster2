@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/BooksterTeam/Bookster2.svg?branch=master)](https://travis-ci.org/BooksterTeam/Bookster2)
+[![Quality Gate](http://193.196.7.25/api/badges/gate?key=io.bookster:bookster-2)](http://193.196.7.25/overview?id=io.bookster%3Abookster-2)
 # Bookster2
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
