@@ -25,6 +25,8 @@ apply plugin: 'maven'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
 apply plugin: 'propdeps'
+apply plugin: 'sonar-runner'
+apply plugin: 'jacoco'
 defaultTasks 'bootRun'
 
 bootRepackage {
