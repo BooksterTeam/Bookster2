@@ -1,6 +1,5 @@
 package io.bookster.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -8,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -27,22 +26,19 @@ public class Lending implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "from_date", nullable = false)
-    private LocalDate fromDate;
+    @Column(name = "from", nullable = false)
+    private ZonedDateTime from;
 
     @NotNull
-    @Column(name = "due_date", nullable = false)
-    private LocalDate dueDate;
-
-    @OneToOne(mappedBy = "lending")
-    @JsonIgnore
-    private LendingRequest lendingRequest;
+    @Column(name = "due", nullable = false)
+    private ZonedDateTime due;
 
     @ManyToOne
-    private BooksterUser holder;
+    private BooksterUser booksterUser;
 
-    @ManyToOne
-    private Copy copie;
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Copy copy;
 
     public Long getId() {
         return id;
@@ -52,44 +48,36 @@ public class Lending implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getFromDate() {
-        return fromDate;
+    public ZonedDateTime getFrom() {
+        return from;
     }
 
-    public void setFromDate(LocalDate fromDate) {
-        this.fromDate = fromDate;
+    public void setFrom(ZonedDateTime from) {
+        this.from = from;
     }
 
-    public LocalDate getDueDate() {
-        return dueDate;
+    public ZonedDateTime getDue() {
+        return due;
     }
 
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
+    public void setDue(ZonedDateTime due) {
+        this.due = due;
     }
 
-    public LendingRequest getLendingRequest() {
-        return lendingRequest;
+    public BooksterUser getBooksterUser() {
+        return booksterUser;
     }
 
-    public void setLendingRequest(LendingRequest lendingRequest) {
-        this.lendingRequest = lendingRequest;
+    public void setBooksterUser(BooksterUser booksterUser) {
+        this.booksterUser = booksterUser;
     }
 
-    public BooksterUser getHolder() {
-        return holder;
+    public Copy getCopy() {
+        return copy;
     }
 
-    public void setHolder(BooksterUser booksterUser) {
-        this.holder = booksterUser;
-    }
-
-    public Copy getCopie() {
-        return copie;
-    }
-
-    public void setCopie(Copy copy) {
-        this.copie = copy;
+    public void setCopy(Copy copy) {
+        this.copy = copy;
     }
 
     @Override
@@ -116,8 +104,8 @@ public class Lending implements Serializable {
     public String toString() {
         return "Lending{" +
             "id=" + id +
-            ", fromDate='" + fromDate + "'" +
-            ", dueDate='" + dueDate + "'" +
+            ", from='" + from + "'" +
+            ", due='" + due + "'" +
             '}';
     }
 }

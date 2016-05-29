@@ -21,8 +21,21 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="user_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="bookster_user"
+                                 constraintName="fk_booksteruser_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/booksterusers.csv"
+                  separator=";"
+                  tableName="bookster_user">
+        </loadData>
     </changeSet>
 </databaseChangeLog>

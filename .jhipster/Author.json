@@ -2,11 +2,10 @@
   "relationships": [
     {
       "relationshipId": 1,
-      "relationshipType": "many-to-many",
-      "relationshipName": "writtenBook",
+      "relationshipName": "book",
       "otherEntityName": "book",
-      "ownerSide": false,
-      "otherEntityRelationshipName": "bookAuthor"
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
     }
   ],
   "fields": [
@@ -23,7 +22,6 @@
   ],
   "changelogDate": "20160412123933",
   "dto": "no",
-  "pagination": "pager",
-  "service": "serviceClass",
-  "entityTableName": "author"
+  "pagination": "pagination",
+  "service": "serviceClass"
 }

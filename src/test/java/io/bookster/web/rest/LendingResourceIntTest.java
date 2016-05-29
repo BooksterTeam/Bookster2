@@ -25,7 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -45,12 +47,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class LendingResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
-    private static final LocalDate DEFAULT_FROM_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_FROM_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final LocalDate DEFAULT_DUE_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DUE_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final ZonedDateTime DEFAULT_FROM = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_FROM = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_FROM_STR = dateTimeFormatter.format(DEFAULT_FROM);
+
+    private static final ZonedDateTime DEFAULT_DUE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_DUE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_DUE_STR = dateTimeFormatter.format(DEFAULT_DUE);
 
     @Inject
     private LendingRepository lendingRepository;
@@ -85,8 +91,8 @@ public class LendingResourceIntTest {
     public void initTest() {
         lendingSearchRepository.deleteAll();
         lending = new Lending();
-        lending.setFromDate(DEFAULT_FROM_DATE);
-        lending.setDueDate(DEFAULT_DUE_DATE);
+        lending.setFrom(DEFAULT_FROM);
+        lending.setDue(DEFAULT_DUE);
     }
 
     @Test
@@ -105,8 +111,8 @@ public class LendingResourceIntTest {
         List<Lending> lendings = lendingRepository.findAll();
         assertThat(lendings).hasSize(databaseSizeBeforeCreate + 1);
         Lending testLending = lendings.get(lendings.size() - 1);
-        assertThat(testLending.getFromDate()).isEqualTo(DEFAULT_FROM_DATE);
-        assertThat(testLending.getDueDate()).isEqualTo(DEFAULT_DUE_DATE);
+        assertThat(testLending.getFrom()).isEqualTo(DEFAULT_FROM);
+        assertThat(testLending.getDue()).isEqualTo(DEFAULT_DUE);
 
         // Validate the Lending in ElasticSearch
         Lending lendingEs = lendingSearchRepository.findOne(testLending.getId());
@@ -115,10 +121,10 @@ public class LendingResourceIntTest {
 
     @Test
     @Transactional
-    public void checkFromDateIsRequired() throws Exception {
+    public void checkFromIsRequired() throws Exception {
         int databaseSizeBeforeTest = lendingRepository.findAll().size();
         // set the field null
-        lending.setFromDate(null);
+        lending.setFrom(null);
 
         // Create the Lending, which fails.
 
@@ -133,10 +139,10 @@ public class LendingResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDueDateIsRequired() throws Exception {
+    public void checkDueIsRequired() throws Exception {
         int databaseSizeBeforeTest = lendingRepository.findAll().size();
         // set the field null
-        lending.setDueDate(null);
+        lending.setDue(null);
 
         // Create the Lending, which fails.
 
@@ -160,8 +166,8 @@ public class LendingResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(lending.getId().intValue())))
-                .andExpect(jsonPath("$.[*].fromDate").value(hasItem(DEFAULT_FROM_DATE.toString())))
-                .andExpect(jsonPath("$.[*].dueDate").value(hasItem(DEFAULT_DUE_DATE.toString())));
+                .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM_STR)))
+                .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE_STR)));
     }
 
     @Test
@@ -175,8 +181,8 @@ public class LendingResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(lending.getId().intValue()))
-            .andExpect(jsonPath("$.fromDate").value(DEFAULT_FROM_DATE.toString()))
-            .andExpect(jsonPath("$.dueDate").value(DEFAULT_DUE_DATE.toString()));
+            .andExpect(jsonPath("$.from").value(DEFAULT_FROM_STR))
+            .andExpect(jsonPath("$.due").value(DEFAULT_DUE_STR));
     }
 
     @Test
@@ -198,8 +204,8 @@ public class LendingResourceIntTest {
         // Update the lending
         Lending updatedLending = new Lending();
         updatedLending.setId(lending.getId());
-        updatedLending.setFromDate(UPDATED_FROM_DATE);
-        updatedLending.setDueDate(UPDATED_DUE_DATE);
+        updatedLending.setFrom(UPDATED_FROM);
+        updatedLending.setDue(UPDATED_DUE);
 
         restLendingMockMvc.perform(put("/api/lendings")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -210,8 +216,8 @@ public class LendingResourceIntTest {
         List<Lending> lendings = lendingRepository.findAll();
         assertThat(lendings).hasSize(databaseSizeBeforeUpdate);
         Lending testLending = lendings.get(lendings.size() - 1);
-        assertThat(testLending.getFromDate()).isEqualTo(UPDATED_FROM_DATE);
-        assertThat(testLending.getDueDate()).isEqualTo(UPDATED_DUE_DATE);
+        assertThat(testLending.getFrom()).isEqualTo(UPDATED_FROM);
+        assertThat(testLending.getDue()).isEqualTo(UPDATED_DUE);
 
         // Validate the Lending in ElasticSearch
         Lending lendingEs = lendingSearchRepository.findOne(testLending.getId());
@@ -251,7 +257,7 @@ public class LendingResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lending.getId().intValue())))
-            .andExpect(jsonPath("$.[*].fromDate").value(hasItem(DEFAULT_FROM_DATE.toString())))
-            .andExpect(jsonPath("$.[*].dueDate").value(hasItem(DEFAULT_DUE_DATE.toString())));
+            .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM_STR)))
+            .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE_STR)));
     }
 }

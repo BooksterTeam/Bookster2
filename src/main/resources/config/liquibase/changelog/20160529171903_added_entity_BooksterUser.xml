@@ -14,37 +14,29 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity Copy.
+        Added the entity BooksterUser.
     -->
-    <changeSet id="20160412123936" author="jhipster">
-        <createTable tableName="copy">
+    <changeSet id="20160529171903" author="jhipster">
+        <createTable tableName="bookster_user">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="verified" type="bit">
-                <constraints nullable="false" />
+            <column name="user_id" type="bigint">
+                <constraints unique="true"/>
             </column>
-            
-            <column name="available" type="bit">
-                <constraints nullable="false" />
-            </column>
-            
-            <column name="book_id" type="bigint"/>
-            <column name="bookster_user_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
-        <addForeignKeyConstraint baseColumnNames="book_id"
-                                 baseTableName="copy"
-                                 constraintName="fk_copy_book_id"
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="bookster_user"
+                                 constraintName="fk_booksteruser_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="book"/>
+                                 referencedTableName="jhi_user"/>
 
-        <addForeignKeyConstraint baseColumnNames="bookster_user_id"
-                                 baseTableName="copy"
-                                 constraintName="fk_copy_booksteruser_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="bookster_user"/>
-
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/booksterusers.csv"
+                  separator=";"
+                  tableName="bookster_user">
+        </loadData>
     </changeSet>
 </databaseChangeLog>

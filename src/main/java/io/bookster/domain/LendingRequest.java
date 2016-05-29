@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import io.bookster.domain.enumeration.RequestStatus;
@@ -29,19 +29,19 @@ public class LendingRequest implements Serializable {
 
     @NotNull
     @Column(name = "date", nullable = false)
-    private LocalDate date;
+    private ZonedDateTime date;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private RequestStatus status;
 
+    @ManyToOne
+    private BooksterUser booksterUser;
+
     @OneToOne
     @JoinColumn(unique = true)
     private Lending lending;
-
-    @ManyToOne
-    private BooksterUser fromUser;
 
     public Long getId() {
         return id;
@@ -51,11 +51,11 @@ public class LendingRequest implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 
@@ -67,20 +67,20 @@ public class LendingRequest implements Serializable {
         this.status = status;
     }
 
+    public BooksterUser getBooksterUser() {
+        return booksterUser;
+    }
+
+    public void setBooksterUser(BooksterUser booksterUser) {
+        this.booksterUser = booksterUser;
+    }
+
     public Lending getLending() {
         return lending;
     }
 
     public void setLending(Lending lending) {
         this.lending = lending;
-    }
-
-    public BooksterUser getFromUser() {
-        return fromUser;
-    }
-
-    public void setFromUser(BooksterUser booksterUser) {
-        this.fromUser = booksterUser;
     }
 
     @Override

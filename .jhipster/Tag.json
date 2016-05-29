@@ -20,7 +20,6 @@
   ],
   "changelogDate": "20160412123937",
   "dto": "no",
-  "pagination": "pager",
-  "service": "serviceClass",
-  "entityTableName": "tag"
+  "pagination": "pagination",
+  "service": "serviceClass"
 }

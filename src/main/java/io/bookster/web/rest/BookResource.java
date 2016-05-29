@@ -122,7 +122,6 @@ public class BookResource {
     public ResponseEntity<Book> getBook(@PathVariable Long id) {
         log.debug("REST request to get Book : {}", id);
         Book book = bookService.findOne(id);
-        //copyService.findAll()
         List<Copy> copies = copyService.findAll();
         Set<Copy> all = copies.stream().filter(copy -> copy.getBook() != null).filter(copy -> copy.getBook().getId().equals(book.getId())).collect(Collectors.toSet());
         book.setCopies(all);

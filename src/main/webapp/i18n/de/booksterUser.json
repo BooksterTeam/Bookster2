@@ -16,9 +16,10 @@
             "detail": {
                 "title": "BooksterUser"
             },
-            "copie": "Copie",
+            "from": "From",
+            "ownerCopie": "OwnerCopie",
             "lending": "Lending",
-            "lendingRequest": "LendingRequest"
+            "user": "User"
         }
     }
 }

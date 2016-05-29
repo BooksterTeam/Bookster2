@@ -5,14 +5,15 @@
         .module('bookster2App')
         .controller('BooksterUserDialogController', BooksterUserDialogController);
 
-    BooksterUserDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'BooksterUser', 'Copy', 'Lending', 'LendingRequest'];
+    BooksterUserDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'BooksterUser', 'LendingRequest', 'Copy', 'Lending', 'User'];
 
-    function BooksterUserDialogController ($scope, $stateParams, $uibModalInstance, entity, BooksterUser, Copy, Lending, LendingRequest) {
+    function BooksterUserDialogController ($scope, $stateParams, $uibModalInstance, $q, entity, BooksterUser, LendingRequest, Copy, Lending, User) {
         var vm = this;
         vm.booksterUser = entity;
+        vm.lendingrequests = LendingRequest.query();
         vm.copys = Copy.query();
         vm.lendings = Lending.query();
-        vm.lendingrequests = LendingRequest.query();
+        vm.users = User.query();
         vm.load = function(id) {
             BooksterUser.get({id : id}, function(result) {
                 vm.booksterUser = result;

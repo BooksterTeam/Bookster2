@@ -5,13 +5,12 @@
         .module('bookster2App')
         .controller('CopyDialogController', CopyDialogController);
 
-    CopyDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Copy', 'Book', 'Lending', 'BooksterUser'];
+    CopyDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Copy', 'Book', 'BooksterUser'];
 
-    function CopyDialogController ($scope, $stateParams, $uibModalInstance, entity, Copy, Book, Lending, BooksterUser) {
+    function CopyDialogController ($scope, $stateParams, $uibModalInstance, entity, Copy, Book, BooksterUser) {
         var vm = this;
         vm.copy = entity;
         vm.books = Book.query();
-        vm.lendings = Lending.query();
         vm.booksterusers = BooksterUser.query();
         vm.load = function(id) {
             Copy.get({id : id}, function(result) {

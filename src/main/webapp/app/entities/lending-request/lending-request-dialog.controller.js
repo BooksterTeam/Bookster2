@@ -5,11 +5,12 @@
         .module('bookster2App')
         .controller('LendingRequestDialogController', LendingRequestDialogController);
 
-    LendingRequestDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'LendingRequest', 'Lending', 'BooksterUser'];
+    LendingRequestDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'LendingRequest', 'BooksterUser', 'Lending'];
 
-    function LendingRequestDialogController ($scope, $stateParams, $uibModalInstance, $q, entity, LendingRequest, Lending, BooksterUser) {
+    function LendingRequestDialogController ($scope, $stateParams, $uibModalInstance, $q, entity, LendingRequest, BooksterUser, Lending) {
         var vm = this;
         vm.lendingRequest = entity;
+        vm.booksterusers = BooksterUser.query();
         vm.lendings = Lending.query({filter: 'lendingrequest-is-null'});
         $q.all([vm.lendingRequest.$promise, vm.lendings.$promise]).then(function() {
             if (!vm.lendingRequest.lending || !vm.lendingRequest.lending.id) {
@@ -19,7 +20,6 @@
         }).then(function(lending) {
             vm.lendings.push(lending);
         });
-        vm.booksterusers = BooksterUser.query();
         vm.load = function(id) {
             LendingRequest.get({id : id}, function(result) {
                 vm.lendingRequest = result;

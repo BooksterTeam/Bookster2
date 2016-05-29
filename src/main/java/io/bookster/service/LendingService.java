@@ -58,20 +58,6 @@ public class LendingService {
         return result;
     }
 
-
-    /**
-     *  get all the lendings where LendingRequest is null.
-     *  @return the list of entities
-     */
-    @Transactional(readOnly = true) 
-    public List<Lending> findAllWhereLendingRequestIsNull() {
-        log.debug("Request to get all lendings where LendingRequest is null");
-        return StreamSupport
-            .stream(lendingRepository.findAll().spliterator(), false)
-            .filter(lending -> lending.getLendingRequest() == null)
-            .collect(Collectors.toList());
-    }
-
     /**
      *  Get one lending by id.
      *

@@ -2,11 +2,13 @@ package io.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import io.bookster.domain.Authority;
+import io.bookster.domain.BooksterUser;
 import io.bookster.domain.PersistentToken;
 import io.bookster.domain.User;
 import io.bookster.repository.PersistentTokenRepository;
 import io.bookster.repository.UserRepository;
 import io.bookster.security.SecurityUtils;
+import io.bookster.service.BooksterUserService;
 import io.bookster.service.MailService;
 import io.bookster.service.UserService;
 import io.bookster.web.rest.dto.KeyAndPasswordDTO;
@@ -50,6 +52,9 @@ public class AccountResource {
     @Inject
     private MailService mailService;
 
+    @Inject
+    private BooksterUserService booksterUserService;
+
     /**
      * POST  /register : register the user.
      *
@@ -74,6 +79,9 @@ public class AccountResource {
                     User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
                     userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
                     userDTO.getLangKey());
+                    BooksterUser booksterUser = new BooksterUser();
+                    booksterUser.setUser(user);
+                    booksterUserService.save(booksterUser);
                     String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"

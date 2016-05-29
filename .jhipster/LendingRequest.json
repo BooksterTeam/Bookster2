@@ -2,26 +2,26 @@
   "relationships": [
     {
       "relationshipId": 1,
-      "relationshipType": "one-to-one",
-      "relationshipName": "lending",
-      "otherEntityName": "lending",
-      "otherEntityField": "id",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "lendingRequest"
+      "relationshipName": "booksterUser",
+      "otherEntityName": "booksterUser",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
     },
     {
       "relationshipId": 2,
-      "relationshipType": "many-to-one",
-      "relationshipName": "fromUser",
-      "otherEntityName": "booksterUser",
-      "otherEntityField": "id"
+      "relationshipName": "lending",
+      "otherEntityName": "lending",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "lendingRequest"
     }
   ],
   "fields": [
     {
       "fieldId": 1,
       "fieldName": "date",
-      "fieldType": "LocalDate",
+      "fieldType": "ZonedDateTime",
       "fieldValidateRules": [
         "required"
       ]
@@ -38,7 +38,6 @@
   ],
   "changelogDate": "20160412123939",
   "dto": "no",
-  "pagination": "pager",
-  "service": "serviceClass",
-  "entityTableName": "lending_request"
+  "pagination": "infinite-scroll",
+  "service": "serviceClass"
 }

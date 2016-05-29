@@ -3,24 +3,24 @@
     <h2><span translate="bookster2App.lending.detail.title">Lending</span> {{vm.lending.id}}</h2>
     <hr>
     <dl class="dl-horizontal">
-        <dt><span translate="bookster2App.lending.fromDate">FromDate</dt></dt>
+        <dt><span translate="bookster2App.lending.from">From</dt></dt>
         <dd>
-            <span>{{vm.lending.fromDate | date:'mediumDate'}}</span>
+            <span>{{vm.lending.from | date:'medium'}}</span>
         </dd>
         <hr>
-        <dt><span translate="bookster2App.lending.dueDate">DueDate</dt></dt>
+        <dt><span translate="bookster2App.lending.due">Due</dt></dt>
         <dd>
-            <span>{{vm.lending.dueDate | date:'mediumDate'}}</span>
+            <span>{{vm.lending.due | date:'medium'}}</span>
         </dd>
         <hr>
-        <dt><span translate="bookster2App.lending.holder">holder</span></dt>
+        <dt><span translate="bookster2App.lending.booksterUser">booksterUser</span></dt>
         <dd>
-            <a ui-sref="bookster-user-detail({id:vm.lending.holder.id})">{{vm.lending.holder.id}}</a>
+            <a ui-sref="bookster-user-detail({id:vm.lending.booksterUser.id})">{{vm.lending.booksterUser.id}}</a>
         </dd>
         <hr>
-        <dt><span translate="bookster2App.lending.copie">copie</span></dt>
+        <dt><span translate="bookster2App.lending.copy">copy</span></dt>
         <dd>
-            <a ui-sref="copy-detail({id:vm.lending.copie.id})">{{vm.lending.copie.id}}</a>
+            <a ui-sref="copy-detail({id:vm.lending.copy.id})">{{vm.lending.copy.id}}</a>
         </dd>
         <hr>
     </dl>

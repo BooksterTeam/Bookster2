@@ -36,12 +36,16 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="user.id"><span translate="bookster2App.booksterUser.user">user</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="booksterUser in vm.booksterUsers track by booksterUser.id">
                     <td><a ui-sref="bookster-user-detail({id:booksterUser.id})">{{booksterUser.id}}</a></td>
+                    <td>
+                        {{booksterUser.user.id}}
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
@@ -70,6 +74,6 @@
     </div>
     <div class="text-center">
         <jhi-item-count page="vm.page" total="vm.queryCount"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
     </div>
-    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
 </div>

@@ -25,7 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -46,9 +48,12 @@ import io.bookster.domain.enumeration.RequestStatus;
 @IntegrationTest
 public class LendingRequestResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
-    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_DATE_STR = dateTimeFormatter.format(DEFAULT_DATE);
 
     private static final RequestStatus DEFAULT_STATUS = RequestStatus.PENDING;
     private static final RequestStatus UPDATED_STATUS = RequestStatus.CANCELED;
@@ -161,7 +166,7 @@ public class LendingRequestResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(lendingRequest.getId().intValue())))
-                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
@@ -176,7 +181,7 @@ public class LendingRequestResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(lendingRequest.getId().intValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
@@ -252,7 +257,7 @@ public class LendingRequestResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lendingRequest.getId().intValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 }

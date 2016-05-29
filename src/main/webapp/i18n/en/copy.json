@@ -19,8 +19,7 @@
             "verified": "Verified",
             "available": "Available",
             "book": "Book",
-            "lending": "Lending",
-            "owner": "Owner"
+            "booksterUser": "BooksterUser"
         }
     }
 }

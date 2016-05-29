@@ -16,11 +16,10 @@
             "detail": {
                 "title": "Lending"
             },
-            "fromDate": "FromDate",
-            "dueDate": "DueDate",
-            "lendingRequest": "LendingRequest",
-            "holder": "Holder",
-            "copie": "Copie"
+            "from": "From",
+            "due": "Due",
+            "booksterUser": "BooksterUser",
+            "copy": "Copy"
         }
     }
 }

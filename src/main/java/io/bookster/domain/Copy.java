@@ -1,6 +1,5 @@
 package io.bookster.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -8,8 +7,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -38,13 +35,8 @@ public class Copy implements Serializable {
     @ManyToOne
     private Book book;
 
-    @OneToMany(mappedBy = "copie")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Lending> lendings = new HashSet<>();
-
     @ManyToOne
-    private BooksterUser owner;
+    private BooksterUser booksterUser;
 
     public Long getId() {
         return id;
@@ -78,20 +70,12 @@ public class Copy implements Serializable {
         this.book = book;
     }
 
-    public Set<Lending> getLendings() {
-        return lendings;
+    public BooksterUser getBooksterUser() {
+        return booksterUser;
     }
 
-    public void setLendings(Set<Lending> lendings) {
-        this.lendings = lendings;
-    }
-
-    public BooksterUser getOwner() {
-        return owner;
-    }
-
-    public void setOwner(BooksterUser booksterUser) {
-        this.owner = booksterUser;
+    public void setBooksterUser(BooksterUser booksterUser) {
+        this.booksterUser = booksterUser;
     }
 
     @Override

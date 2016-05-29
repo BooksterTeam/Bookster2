@@ -18,8 +18,8 @@
             },
             "date": "Date",
             "status": "Status",
-            "lending": "Lending",
-            "fromUser": "FromUser"
+            "booksterUser": "BooksterUser",
+            "lending": "Lending"
         }
     }
 }

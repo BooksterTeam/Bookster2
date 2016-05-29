@@ -9,16 +9,9 @@
     },
     {
       "relationshipId": 2,
-      "relationshipType": "one-to-many",
-      "relationshipName": "lending",
-      "otherEntityName": "lending",
-      "otherEntityRelationshipName": "copie"
-    },
-    {
-      "relationshipId": 3,
-      "relationshipType": "many-to-one",
-      "relationshipName": "owner",
+      "relationshipName": "booksterUser",
       "otherEntityName": "booksterUser",
+      "relationshipType": "many-to-one",
       "otherEntityField": "id"
     }
   ],
@@ -42,7 +35,6 @@
   ],
   "changelogDate": "20160412123936",
   "dto": "no",
-  "pagination": "pager",
-  "service": "serviceClass",
-  "entityTableName": "copy"
+  "pagination": "pagination",
+  "service": "serviceClass"
 }
