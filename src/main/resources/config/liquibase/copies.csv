@@ -1,2 +1,2 @@
-ID;VERIFIED;AVAILABLE;BOOK_ID;BOOKSTER_USER_ID
-1; true; true; 1001; 1
+id;verified;available;book_id;bookster_user_id
+1;True;True;1001;1

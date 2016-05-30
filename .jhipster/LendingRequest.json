@@ -20,7 +20,7 @@
   "fields": [
     {
       "fieldId": 1,
-      "fieldName": "created",
+      "fieldName": "createdDate",
       "fieldType": "LocalDate",
       "fieldValidateRules": [
         "required"
@@ -28,7 +28,7 @@
     },
     {
       "fieldId": 2,
-      "fieldName": "from",
+      "fieldName": "fromDate",
       "fieldType": "LocalDate",
       "fieldValidateRules": [
         "required"
@@ -36,7 +36,7 @@
     },
     {
       "fieldId": 3,
-      "fieldName": "due",
+      "fieldName": "dueDate",
       "fieldType": "LocalDate",
       "fieldValidateRules": [
         "required"

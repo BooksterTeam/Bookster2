@@ -28,16 +28,16 @@ public class LendingRequest implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "created", nullable = false)
-    private LocalDate created;
+    @Column(name = "created_date", nullable = false)
+    private LocalDate createdDate;
 
     @NotNull
-    @Column(name = "from", nullable = false)
-    private LocalDate from;
+    @Column(name = "from_date", nullable = false)
+    private LocalDate fromDate;
 
     @NotNull
-    @Column(name = "due", nullable = false)
-    private LocalDate due;
+    @Column(name = "due_date", nullable = false)
+    private LocalDate dueDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -59,28 +59,28 @@ public class LendingRequest implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getCreated() {
-        return created;
+    public LocalDate getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreated(LocalDate created) {
-        this.created = created;
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public LocalDate getFrom() {
-        return from;
+    public LocalDate getFromDate() {
+        return fromDate;
     }
 
-    public void setFrom(LocalDate from) {
-        this.from = from;
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public LocalDate getDue() {
-        return due;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
-    public void setDue(LocalDate due) {
-        this.due = due;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
     public RequestStatus getStatus() {
@@ -131,9 +131,9 @@ public class LendingRequest implements Serializable {
     public String toString() {
         return "LendingRequest{" +
             "id=" + id +
-            ", created='" + created + "'" +
-            ", from='" + from + "'" +
-            ", due='" + due + "'" +
+            ", createdDate='" + createdDate + "'" +
+            ", fromDate='" + fromDate + "'" +
+            ", dueDate='" + dueDate + "'" +
             ", status='" + status + "'" +
             '}';
     }

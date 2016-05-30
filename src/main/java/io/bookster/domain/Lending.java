@@ -26,12 +26,12 @@ public class Lending implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "from", nullable = false)
-    private LocalDate from;
+    @Column(name = "from_date", nullable = false)
+    private LocalDate fromDate;
 
     @NotNull
-    @Column(name = "due", nullable = false)
-    private LocalDate due;
+    @Column(name = "due_date", nullable = false)
+    private LocalDate dueDate;
 
     @ManyToOne
     private BooksterUser booksterUser;
@@ -48,20 +48,20 @@ public class Lending implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getFrom() {
-        return from;
+    public LocalDate getFromDate() {
+        return fromDate;
     }
 
-    public void setFrom(LocalDate from) {
-        this.from = from;
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public LocalDate getDue() {
-        return due;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
-    public void setDue(LocalDate due) {
-        this.due = due;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
     public BooksterUser getBooksterUser() {
@@ -104,8 +104,8 @@ public class Lending implements Serializable {
     public String toString() {
         return "Lending{" +
             "id=" + id +
-            ", from='" + from + "'" +
-            ", due='" + due + "'" +
+            ", fromDate='" + fromDate + "'" +
+            ", dueDate='" + dueDate + "'" +
             '}';
     }
 }

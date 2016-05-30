@@ -36,9 +36,9 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="created"><span translate="bookster2App.lendingRequest.created">Created</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="from"><span translate="bookster2App.lendingRequest.from">From</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="due"><span translate="bookster2App.lendingRequest.due">Due</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createdDate"><span translate="bookster2App.lendingRequest.createdDate">CreatedDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fromDate"><span translate="bookster2App.lendingRequest.fromDate">FromDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dueDate"><span translate="bookster2App.lendingRequest.dueDate">DueDate</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status"><span translate="bookster2App.lendingRequest.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="booksterUser.id"><span translate="bookster2App.lendingRequest.booksterUser">booksterUser</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="copie.id"><span translate="bookster2App.lendingRequest.copie">copie</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -48,9 +48,9 @@
             <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
                 <tr ng-repeat="lendingRequest in vm.lendingRequests track by lendingRequest.id">
                     <td><a ui-sref="lending-request-detail({id:lendingRequest.id})">{{lendingRequest.id}}</a></td>
-                        <td>{{lendingRequest.created | date:'mediumDate'}}</td>
-                        <td>{{lendingRequest.from | date:'mediumDate'}}</td>
-                        <td>{{lendingRequest.due | date:'mediumDate'}}</td>
+                        <td>{{lendingRequest.createdDate | date:'mediumDate'}}</td>
+                        <td>{{lendingRequest.fromDate | date:'mediumDate'}}</td>
+                        <td>{{lendingRequest.dueDate | date:'mediumDate'}}</td>
                     <td translate="{{'bookster2App.RequestStatus.' + lendingRequest.status}}">{{lendingRequest.status}}</td>
                     <td>
                         <a ui-sref="bookster-user-detail({id:lendingRequest.booksterUser.id})">{{lendingRequest.booksterUser.id}}</a>

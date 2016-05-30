@@ -47,14 +47,14 @@ import io.bookster.domain.enumeration.RequestStatus;
 public class LendingRequestResourceIntTest {
 
 
-    private static final LocalDate DEFAULT_CREATED = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATED = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_CREATED_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final LocalDate DEFAULT_FROM = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_FROM = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_FROM_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FROM_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final LocalDate DEFAULT_DUE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DUE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_DUE_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DUE_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final RequestStatus DEFAULT_STATUS = RequestStatus.PENDING;
     private static final RequestStatus UPDATED_STATUS = RequestStatus.CANCELED;
@@ -92,9 +92,9 @@ public class LendingRequestResourceIntTest {
     public void initTest() {
         lendingRequestSearchRepository.deleteAll();
         lendingRequest = new LendingRequest();
-        lendingRequest.setCreated(DEFAULT_CREATED);
-        lendingRequest.setFrom(DEFAULT_FROM);
-        lendingRequest.setDue(DEFAULT_DUE);
+        lendingRequest.setCreatedDate(DEFAULT_CREATED_DATE);
+        lendingRequest.setFromDate(DEFAULT_FROM_DATE);
+        lendingRequest.setDueDate(DEFAULT_DUE_DATE);
         lendingRequest.setStatus(DEFAULT_STATUS);
     }
 
@@ -114,9 +114,9 @@ public class LendingRequestResourceIntTest {
         List<LendingRequest> lendingRequests = lendingRequestRepository.findAll();
         assertThat(lendingRequests).hasSize(databaseSizeBeforeCreate + 1);
         LendingRequest testLendingRequest = lendingRequests.get(lendingRequests.size() - 1);
-        assertThat(testLendingRequest.getCreated()).isEqualTo(DEFAULT_CREATED);
-        assertThat(testLendingRequest.getFrom()).isEqualTo(DEFAULT_FROM);
-        assertThat(testLendingRequest.getDue()).isEqualTo(DEFAULT_DUE);
+        assertThat(testLendingRequest.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+        assertThat(testLendingRequest.getFromDate()).isEqualTo(DEFAULT_FROM_DATE);
+        assertThat(testLendingRequest.getDueDate()).isEqualTo(DEFAULT_DUE_DATE);
         assertThat(testLendingRequest.getStatus()).isEqualTo(DEFAULT_STATUS);
 
         // Validate the LendingRequest in ElasticSearch
@@ -126,10 +126,10 @@ public class LendingRequestResourceIntTest {
 
     @Test
     @Transactional
-    public void checkCreatedIsRequired() throws Exception {
+    public void checkCreatedDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = lendingRequestRepository.findAll().size();
         // set the field null
-        lendingRequest.setCreated(null);
+        lendingRequest.setCreatedDate(null);
 
         // Create the LendingRequest, which fails.
 
@@ -144,10 +144,10 @@ public class LendingRequestResourceIntTest {
 
     @Test
     @Transactional
-    public void checkFromIsRequired() throws Exception {
+    public void checkFromDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = lendingRequestRepository.findAll().size();
         // set the field null
-        lendingRequest.setFrom(null);
+        lendingRequest.setFromDate(null);
 
         // Create the LendingRequest, which fails.
 
@@ -162,10 +162,10 @@ public class LendingRequestResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDueIsRequired() throws Exception {
+    public void checkDueDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = lendingRequestRepository.findAll().size();
         // set the field null
-        lendingRequest.setDue(null);
+        lendingRequest.setDueDate(null);
 
         // Create the LendingRequest, which fails.
 
@@ -207,9 +207,9 @@ public class LendingRequestResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(lendingRequest.getId().intValue())))
-                .andExpect(jsonPath("$.[*].created").value(hasItem(DEFAULT_CREATED.toString())))
-                .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM.toString())))
-                .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE.toString())))
+                .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
+                .andExpect(jsonPath("$.[*].fromDate").value(hasItem(DEFAULT_FROM_DATE.toString())))
+                .andExpect(jsonPath("$.[*].dueDate").value(hasItem(DEFAULT_DUE_DATE.toString())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
@@ -224,9 +224,9 @@ public class LendingRequestResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(lendingRequest.getId().intValue()))
-            .andExpect(jsonPath("$.created").value(DEFAULT_CREATED.toString()))
-            .andExpect(jsonPath("$.from").value(DEFAULT_FROM.toString()))
-            .andExpect(jsonPath("$.due").value(DEFAULT_DUE.toString()))
+            .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
+            .andExpect(jsonPath("$.fromDate").value(DEFAULT_FROM_DATE.toString()))
+            .andExpect(jsonPath("$.dueDate").value(DEFAULT_DUE_DATE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
@@ -249,9 +249,9 @@ public class LendingRequestResourceIntTest {
         // Update the lendingRequest
         LendingRequest updatedLendingRequest = new LendingRequest();
         updatedLendingRequest.setId(lendingRequest.getId());
-        updatedLendingRequest.setCreated(UPDATED_CREATED);
-        updatedLendingRequest.setFrom(UPDATED_FROM);
-        updatedLendingRequest.setDue(UPDATED_DUE);
+        updatedLendingRequest.setCreatedDate(UPDATED_CREATED_DATE);
+        updatedLendingRequest.setFromDate(UPDATED_FROM_DATE);
+        updatedLendingRequest.setDueDate(UPDATED_DUE_DATE);
         updatedLendingRequest.setStatus(UPDATED_STATUS);
 
         restLendingRequestMockMvc.perform(put("/api/lending-requests")
@@ -263,9 +263,9 @@ public class LendingRequestResourceIntTest {
         List<LendingRequest> lendingRequests = lendingRequestRepository.findAll();
         assertThat(lendingRequests).hasSize(databaseSizeBeforeUpdate);
         LendingRequest testLendingRequest = lendingRequests.get(lendingRequests.size() - 1);
-        assertThat(testLendingRequest.getCreated()).isEqualTo(UPDATED_CREATED);
-        assertThat(testLendingRequest.getFrom()).isEqualTo(UPDATED_FROM);
-        assertThat(testLendingRequest.getDue()).isEqualTo(UPDATED_DUE);
+        assertThat(testLendingRequest.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
+        assertThat(testLendingRequest.getFromDate()).isEqualTo(UPDATED_FROM_DATE);
+        assertThat(testLendingRequest.getDueDate()).isEqualTo(UPDATED_DUE_DATE);
         assertThat(testLendingRequest.getStatus()).isEqualTo(UPDATED_STATUS);
 
         // Validate the LendingRequest in ElasticSearch
@@ -306,9 +306,9 @@ public class LendingRequestResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lendingRequest.getId().intValue())))
-            .andExpect(jsonPath("$.[*].created").value(hasItem(DEFAULT_CREATED.toString())))
-            .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM.toString())))
-            .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE.toString())))
+            .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].fromDate").value(hasItem(DEFAULT_FROM_DATE.toString())))
+            .andExpect(jsonPath("$.[*].dueDate").value(hasItem(DEFAULT_DUE_DATE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 }

@@ -16,9 +16,9 @@
             "detail": {
                 "title": "LendingRequest"
             },
-            "created": "Created",
-            "from": "From",
-            "due": "Due",
+            "createdDate": "CreatedDate",
+            "fromDate": "FromDate",
+            "dueDate": "DueDate",
             "status": "Status",
             "booksterUser": "BooksterUser",
             "copie": "Copie"

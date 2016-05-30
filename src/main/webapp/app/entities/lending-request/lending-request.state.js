@@ -73,9 +73,9 @@
                     resolve: {
                         entity: function () {
                             return {
-                                created: null,
-                                from: null,
-                                due: null,
+                                createdDate: null,
+                                fromDate: null,
+                                dueDate: null,
                                 status: null,
                                 id: null
                             };

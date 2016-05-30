@@ -50,8 +50,8 @@
         };
 
         vm.datePickerOpenStatus = {};
-        vm.datePickerOpenStatus.from = false;
-        vm.datePickerOpenStatus.due = false;
+        vm.datePickerOpenStatus.fromDate = false;
+        vm.datePickerOpenStatus.dueDate = false;
 
         vm.openCalendar = function(date) {
             vm.datePickerOpenStatus[date] = true;
