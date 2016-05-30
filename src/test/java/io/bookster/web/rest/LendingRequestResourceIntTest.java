@@ -25,9 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -48,12 +46,15 @@ import io.bookster.domain.enumeration.RequestStatus;
 @IntegrationTest
 public class LendingRequestResourceIntTest {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
+    private static final LocalDate DEFAULT_CREATED = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED = LocalDate.now(ZoneId.systemDefault());
 
-    private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
-    private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_DATE_STR = dateTimeFormatter.format(DEFAULT_DATE);
+    private static final LocalDate DEFAULT_FROM = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FROM = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_DUE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DUE = LocalDate.now(ZoneId.systemDefault());
 
     private static final RequestStatus DEFAULT_STATUS = RequestStatus.PENDING;
     private static final RequestStatus UPDATED_STATUS = RequestStatus.CANCELED;
@@ -91,7 +92,9 @@ public class LendingRequestResourceIntTest {
     public void initTest() {
         lendingRequestSearchRepository.deleteAll();
         lendingRequest = new LendingRequest();
-        lendingRequest.setDate(DEFAULT_DATE);
+        lendingRequest.setCreated(DEFAULT_CREATED);
+        lendingRequest.setFrom(DEFAULT_FROM);
+        lendingRequest.setDue(DEFAULT_DUE);
         lendingRequest.setStatus(DEFAULT_STATUS);
     }
 
@@ -111,7 +114,9 @@ public class LendingRequestResourceIntTest {
         List<LendingRequest> lendingRequests = lendingRequestRepository.findAll();
         assertThat(lendingRequests).hasSize(databaseSizeBeforeCreate + 1);
         LendingRequest testLendingRequest = lendingRequests.get(lendingRequests.size() - 1);
-        assertThat(testLendingRequest.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testLendingRequest.getCreated()).isEqualTo(DEFAULT_CREATED);
+        assertThat(testLendingRequest.getFrom()).isEqualTo(DEFAULT_FROM);
+        assertThat(testLendingRequest.getDue()).isEqualTo(DEFAULT_DUE);
         assertThat(testLendingRequest.getStatus()).isEqualTo(DEFAULT_STATUS);
 
         // Validate the LendingRequest in ElasticSearch
@@ -121,10 +126,46 @@ public class LendingRequestResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDateIsRequired() throws Exception {
+    public void checkCreatedIsRequired() throws Exception {
         int databaseSizeBeforeTest = lendingRequestRepository.findAll().size();
         // set the field null
-        lendingRequest.setDate(null);
+        lendingRequest.setCreated(null);
+
+        // Create the LendingRequest, which fails.
+
+        restLendingRequestMockMvc.perform(post("/api/lending-requests")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(lendingRequest)))
+                .andExpect(status().isBadRequest());
+
+        List<LendingRequest> lendingRequests = lendingRequestRepository.findAll();
+        assertThat(lendingRequests).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkFromIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lendingRequestRepository.findAll().size();
+        // set the field null
+        lendingRequest.setFrom(null);
+
+        // Create the LendingRequest, which fails.
+
+        restLendingRequestMockMvc.perform(post("/api/lending-requests")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(lendingRequest)))
+                .andExpect(status().isBadRequest());
+
+        List<LendingRequest> lendingRequests = lendingRequestRepository.findAll();
+        assertThat(lendingRequests).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkDueIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lendingRequestRepository.findAll().size();
+        // set the field null
+        lendingRequest.setDue(null);
 
         // Create the LendingRequest, which fails.
 
@@ -166,7 +207,9 @@ public class LendingRequestResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(lendingRequest.getId().intValue())))
-                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].created").value(hasItem(DEFAULT_CREATED.toString())))
+                .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM.toString())))
+                .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE.toString())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
@@ -181,7 +224,9 @@ public class LendingRequestResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(lendingRequest.getId().intValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
+            .andExpect(jsonPath("$.created").value(DEFAULT_CREATED.toString()))
+            .andExpect(jsonPath("$.from").value(DEFAULT_FROM.toString()))
+            .andExpect(jsonPath("$.due").value(DEFAULT_DUE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
@@ -204,7 +249,9 @@ public class LendingRequestResourceIntTest {
         // Update the lendingRequest
         LendingRequest updatedLendingRequest = new LendingRequest();
         updatedLendingRequest.setId(lendingRequest.getId());
-        updatedLendingRequest.setDate(UPDATED_DATE);
+        updatedLendingRequest.setCreated(UPDATED_CREATED);
+        updatedLendingRequest.setFrom(UPDATED_FROM);
+        updatedLendingRequest.setDue(UPDATED_DUE);
         updatedLendingRequest.setStatus(UPDATED_STATUS);
 
         restLendingRequestMockMvc.perform(put("/api/lending-requests")
@@ -216,7 +263,9 @@ public class LendingRequestResourceIntTest {
         List<LendingRequest> lendingRequests = lendingRequestRepository.findAll();
         assertThat(lendingRequests).hasSize(databaseSizeBeforeUpdate);
         LendingRequest testLendingRequest = lendingRequests.get(lendingRequests.size() - 1);
-        assertThat(testLendingRequest.getDate()).isEqualTo(UPDATED_DATE);
+        assertThat(testLendingRequest.getCreated()).isEqualTo(UPDATED_CREATED);
+        assertThat(testLendingRequest.getFrom()).isEqualTo(UPDATED_FROM);
+        assertThat(testLendingRequest.getDue()).isEqualTo(UPDATED_DUE);
         assertThat(testLendingRequest.getStatus()).isEqualTo(UPDATED_STATUS);
 
         // Validate the LendingRequest in ElasticSearch
@@ -257,7 +306,9 @@ public class LendingRequestResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lendingRequest.getId().intValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
+            .andExpect(jsonPath("$.[*].created").value(hasItem(DEFAULT_CREATED.toString())))
+            .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM.toString())))
+            .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 }

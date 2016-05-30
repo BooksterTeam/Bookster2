@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -27,11 +27,11 @@ public class Lending implements Serializable {
 
     @NotNull
     @Column(name = "from", nullable = false)
-    private ZonedDateTime from;
+    private LocalDate from;
 
     @NotNull
     @Column(name = "due", nullable = false)
-    private ZonedDateTime due;
+    private LocalDate due;
 
     @ManyToOne
     private BooksterUser booksterUser;
@@ -48,19 +48,19 @@ public class Lending implements Serializable {
         this.id = id;
     }
 
-    public ZonedDateTime getFrom() {
+    public LocalDate getFrom() {
         return from;
     }
 
-    public void setFrom(ZonedDateTime from) {
+    public void setFrom(LocalDate from) {
         this.from = from;
     }
 
-    public ZonedDateTime getDue() {
+    public LocalDate getDue() {
         return due;
     }
 
-    public void setDue(ZonedDateTime due) {
+    public void setDue(LocalDate due) {
         this.due = due;
     }
 

@@ -16,10 +16,12 @@
             "detail": {
                 "title": "LendingRequest"
             },
-            "date": "Date",
+            "created": "Created",
+            "from": "From",
+            "due": "Due",
             "status": "Status",
             "booksterUser": "BooksterUser",
-            "lending": "Lending"
+            "copie": "Copie"
         }
     }
 }

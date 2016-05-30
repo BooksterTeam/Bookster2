@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import io.bookster.domain.enumeration.RequestStatus;
@@ -28,8 +28,16 @@ public class LendingRequest implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "date", nullable = false)
-    private ZonedDateTime date;
+    @Column(name = "created", nullable = false)
+    private LocalDate created;
+
+    @NotNull
+    @Column(name = "from", nullable = false)
+    private LocalDate from;
+
+    @NotNull
+    @Column(name = "due", nullable = false)
+    private LocalDate due;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -41,7 +49,7 @@ public class LendingRequest implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private Lending lending;
+    private Copy copie;
 
     public Long getId() {
         return id;
@@ -51,12 +59,28 @@ public class LendingRequest implements Serializable {
         this.id = id;
     }
 
-    public ZonedDateTime getDate() {
-        return date;
+    public LocalDate getCreated() {
+        return created;
     }
 
-    public void setDate(ZonedDateTime date) {
-        this.date = date;
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public void setFrom(LocalDate from) {
+        this.from = from;
+    }
+
+    public LocalDate getDue() {
+        return due;
+    }
+
+    public void setDue(LocalDate due) {
+        this.due = due;
     }
 
     public RequestStatus getStatus() {
@@ -75,12 +99,12 @@ public class LendingRequest implements Serializable {
         this.booksterUser = booksterUser;
     }
 
-    public Lending getLending() {
-        return lending;
+    public Copy getCopie() {
+        return copie;
     }
 
-    public void setLending(Lending lending) {
-        this.lending = lending;
+    public void setCopie(Copy copy) {
+        this.copie = copy;
     }
 
     @Override
@@ -107,7 +131,9 @@ public class LendingRequest implements Serializable {
     public String toString() {
         return "LendingRequest{" +
             "id=" + id +
-            ", date='" + date + "'" +
+            ", created='" + created + "'" +
+            ", from='" + from + "'" +
+            ", due='" + due + "'" +
             ", status='" + status + "'" +
             '}';
     }

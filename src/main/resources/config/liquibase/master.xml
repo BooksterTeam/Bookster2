@@ -6,8 +6,8 @@
 
     <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160412123933_added_entity_Author.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160529171903_added_entity_BooksterUser.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160412123934_added_entity_Book.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160412123935_added_entity_BooksterUser.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160412123936_added_entity_Copy.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160412123937_added_entity_Tag.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160412123938_added_entity_Lending.xml" relativeToChangelogFile="false"/>

@@ -5,20 +5,20 @@
         .module('bookster2App')
         .controller('LendingRequestDialogController', LendingRequestDialogController);
 
-    LendingRequestDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'LendingRequest', 'BooksterUser', 'Lending'];
+    LendingRequestDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'LendingRequest', 'BooksterUser', 'Copy'];
 
-    function LendingRequestDialogController ($scope, $stateParams, $uibModalInstance, $q, entity, LendingRequest, BooksterUser, Lending) {
+    function LendingRequestDialogController ($scope, $stateParams, $uibModalInstance, $q, entity, LendingRequest, BooksterUser, Copy) {
         var vm = this;
         vm.lendingRequest = entity;
         vm.booksterusers = BooksterUser.query();
-        vm.lendings = Lending.query({filter: 'lendingrequest-is-null'});
-        $q.all([vm.lendingRequest.$promise, vm.lendings.$promise]).then(function() {
-            if (!vm.lendingRequest.lending || !vm.lendingRequest.lending.id) {
+        vm.copies = Copy.query({filter: 'lendingrequest-is-null'});
+        $q.all([vm.lendingRequest.$promise, vm.copies.$promise]).then(function() {
+            if (!vm.lendingRequest.copie || !vm.lendingRequest.copie.id) {
                 return $q.reject();
             }
-            return Lending.get({id : vm.lendingRequest.lending.id}).$promise;
-        }).then(function(lending) {
-            vm.lendings.push(lending);
+            return Copy.get({id : vm.lendingRequest.copie.id}).$promise;
+        }).then(function(copie) {
+            vm.copies.push(copie);
         });
         vm.load = function(id) {
             LendingRequest.get({id : id}, function(result) {
@@ -50,7 +50,9 @@
         };
 
         vm.datePickerOpenStatus = {};
-        vm.datePickerOpenStatus.date = false;
+        vm.datePickerOpenStatus.created = false;
+        vm.datePickerOpenStatus.from = false;
+        vm.datePickerOpenStatus.due = false;
 
         vm.openCalendar = function(date) {
             vm.datePickerOpenStatus[date] = true;

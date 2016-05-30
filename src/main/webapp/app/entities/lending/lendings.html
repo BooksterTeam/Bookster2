@@ -46,8 +46,8 @@
             <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
                 <tr ng-repeat="lending in vm.lendings track by lending.id">
                     <td><a ui-sref="lending-detail({id:lending.id})">{{lending.id}}</a></td>
-                    <td>{{lending.from | date:'medium'}}</td>
-                    <td>{{lending.due | date:'medium'}}</td>
+                        <td>{{lending.from | date:'mediumDate'}}</td>
+                        <td>{{lending.due | date:'mediumDate'}}</td>
                     <td>
                         <a ui-sref="bookster-user-detail({id:lending.booksterUser.id})">{{lending.booksterUser.id}}</a>
                     </td>

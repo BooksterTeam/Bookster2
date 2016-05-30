@@ -25,9 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -47,16 +45,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class LendingResourceIntTest {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
+    private static final LocalDate DEFAULT_FROM = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FROM = LocalDate.now(ZoneId.systemDefault());
 
-    private static final ZonedDateTime DEFAULT_FROM = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
-    private static final ZonedDateTime UPDATED_FROM = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_FROM_STR = dateTimeFormatter.format(DEFAULT_FROM);
-
-    private static final ZonedDateTime DEFAULT_DUE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
-    private static final ZonedDateTime UPDATED_DUE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_DUE_STR = dateTimeFormatter.format(DEFAULT_DUE);
+    private static final LocalDate DEFAULT_DUE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DUE = LocalDate.now(ZoneId.systemDefault());
 
     @Inject
     private LendingRepository lendingRepository;
@@ -166,8 +160,8 @@ public class LendingResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(lending.getId().intValue())))
-                .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM_STR)))
-                .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE_STR)));
+                .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM.toString())))
+                .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE.toString())));
     }
 
     @Test
@@ -181,8 +175,8 @@ public class LendingResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(lending.getId().intValue()))
-            .andExpect(jsonPath("$.from").value(DEFAULT_FROM_STR))
-            .andExpect(jsonPath("$.due").value(DEFAULT_DUE_STR));
+            .andExpect(jsonPath("$.from").value(DEFAULT_FROM.toString()))
+            .andExpect(jsonPath("$.due").value(DEFAULT_DUE.toString()));
     }
 
     @Test
@@ -257,7 +251,7 @@ public class LendingResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(lending.getId().intValue())))
-            .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM_STR)))
-            .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE_STR)));
+            .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM.toString())))
+            .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE.toString())));
     }
 }

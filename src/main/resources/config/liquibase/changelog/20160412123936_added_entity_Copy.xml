@@ -45,6 +45,10 @@
                                  constraintName="fk_copy_booksteruser_id"
                                  referencedColumnNames="id"
                                  referencedTableName="bookster_user"/>
-
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/copies.csv"
+                  separator=";"
+                  tableName="copy">
+        </loadData>
     </changeSet>
 </databaseChangeLog>

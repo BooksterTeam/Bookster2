@@ -21,11 +21,11 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="from" type="timestamp">
+            <column name="from" type="date">
                 <constraints nullable="false" />
             </column>
             
-            <column name="due" type="timestamp">
+            <column name="due" type="date">
                 <constraints nullable="false" />
             </column>
             
@@ -35,8 +35,6 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="lending" columnName="from" columnDataType="datetime"/>
-        <dropDefaultValue tableName="lending" columnName="due" columnDataType="datetime"/>
         
         <addForeignKeyConstraint baseColumnNames="bookster_user_id"
                                  baseTableName="lending"

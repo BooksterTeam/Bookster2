@@ -9,8 +9,8 @@
     },
     {
       "relationshipId": 2,
-      "relationshipName": "lending",
-      "otherEntityName": "lending",
+      "relationshipName": "copie",
+      "otherEntityName": "copy",
       "relationshipType": "one-to-one",
       "otherEntityField": "id",
       "ownerSide": true,
@@ -20,14 +20,30 @@
   "fields": [
     {
       "fieldId": 1,
-      "fieldName": "date",
-      "fieldType": "ZonedDateTime",
+      "fieldName": "created",
+      "fieldType": "LocalDate",
       "fieldValidateRules": [
         "required"
       ]
     },
     {
       "fieldId": 2,
+      "fieldName": "from",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "due",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 4,
       "fieldName": "status",
       "fieldType": "RequestStatus",
       "fieldValues": "PENDING,CANCELED,ACCEPTED,REJECTED",
