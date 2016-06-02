@@ -1,15 +1,10 @@
-FROM beevelop/java
+FROM java:openjdk-8-jdk-alpine
 
-COPY ./ /opt/
+# add directly the war
+ADD ./build/libs/bookster-2-0.0.1-SNAPSHOT.war /app.war
 
-ENV NODEJS_VERSION=5.11.0 \
-    PATH=$PATH:/opt/node/bin:/opt/bin
+RUN sh -c 'touch /app.war'
+VOLUME /tmp
+CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.war"]
 
-WORKDIR /opt
-
-RUN apt-get update && apt-get install -y curl ca-certificates git ssh tar && \
-    curl -sL https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz | tar xz --strip-components=1 && \
-    npm i -g bower && \
-    cd .. && npm i
-
-CMD './gradlew'
+#EXPOSE 8080
