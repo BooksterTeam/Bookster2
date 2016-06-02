@@ -7,5 +7,4 @@ git remote add foobar dokku@bookster.bee.pw:foobar.bookster.bee.pw
 cp build/libs/bookster-2-0.0.1-SNAPSHOT.war ./app.war
 ls -l
 
-git checkout -b autodeploy
-git push autodeploy master
+git push origin master
