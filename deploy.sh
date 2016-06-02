@@ -2,10 +2,10 @@
 git branch
 
 ssh-keyscan bookster.bee.pw >> ~/.ssh/known_hosts
-#git remote add foobar dokku@bookster.bee.pw:foobar.bookster.bee.pw
-git remote set-url origin dokku@bookster.bee.pw:foobar.bookster.bee.pw
-git branch
+git remote add foobar dokku@bookster.bee.pw:foobar.bookster.bee.pw
+
+
 cp build/libs/bookster-2-0.0.1-SNAPSHOT.war ./app.war
-#git pull master
-git push origin --delete master
-git push -u foobar master
+
+
+git push foobar master
