@@ -12,14 +12,10 @@ addons:
   sauce_connect: true
 
 before_install:
-  - npm install -g grunt-cli
-  - npm install -g bower
-  - npm install -g tsd
-  - npm install -g chai
-  - npm install -g cucumber
-  - npm install -g protractor
+  - npm install -g grunt-cli bower tsd chai cucumber protractor
   - openssl aes-256-cbc -K $encrypted_3ae3b20d13af_key -iv $encrypted_3ae3b20d13af_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
-
+  - chmod 600 ~/.ssh/id_rsa
+  - touch ~/.ssh/known_hosts
 
 script:
   - ./gradlew build -x test
