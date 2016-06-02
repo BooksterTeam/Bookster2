@@ -18,7 +18,7 @@ before_install:
   - touch ~/.ssh/known_hosts
 
 script:
-  - ./gradlew build -x test
+  - ./gradlew -Pdev bootrepackage
 
 notifications:
   slack:
