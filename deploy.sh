@@ -9,5 +9,6 @@ cp build/libs/bookster-2-0.0.1-SNAPSHOT.war ./app.war
 
 git status
 
+git pull
 git checkout -b foobar
 git push foobar master
