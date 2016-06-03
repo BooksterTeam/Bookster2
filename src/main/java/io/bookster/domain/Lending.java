@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -26,12 +26,12 @@ public class Lending implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "from", nullable = false)
-    private ZonedDateTime from;
+    @Column(name = "from_date", nullable = false)
+    private LocalDate fromDate;
 
     @NotNull
-    @Column(name = "due", nullable = false)
-    private ZonedDateTime due;
+    @Column(name = "due_date", nullable = false)
+    private LocalDate dueDate;
 
     @ManyToOne
     private BooksterUser booksterUser;
@@ -48,20 +48,20 @@ public class Lending implements Serializable {
         this.id = id;
     }
 
-    public ZonedDateTime getFrom() {
-        return from;
+    public LocalDate getFromDate() {
+        return fromDate;
     }
 
-    public void setFrom(ZonedDateTime from) {
-        this.from = from;
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public ZonedDateTime getDue() {
-        return due;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
-    public void setDue(ZonedDateTime due) {
-        this.due = due;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
     public BooksterUser getBooksterUser() {
@@ -104,8 +104,8 @@ public class Lending implements Serializable {
     public String toString() {
         return "Lending{" +
             "id=" + id +
-            ", from='" + from + "'" +
-            ", due='" + due + "'" +
+            ", fromDate='" + fromDate + "'" +
+            ", dueDate='" + dueDate + "'" +
             '}';
     }
 }

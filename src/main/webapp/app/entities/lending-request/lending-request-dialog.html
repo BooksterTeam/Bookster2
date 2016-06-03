@@ -14,22 +14,50 @@
                     ng-model="vm.lendingRequest.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="bookster2App.lendingRequest.date" for="field_date">Date</label>
+            <label class="control-label" translate="bookster2App.lendingRequest.createdDate" for="field_createdDate">CreatedDate</label>
                 <div class="input-group">
-                    <input id="field_date" type="text" class="form-control" name="date" datetime-picker="{{dateformat}}" ng-model="vm.lendingRequest.date" is-open="vm.datePickerOpenStatus.date"
-                    required  />
+                    <input id="field_createdDate" type="text" class="form-control" name="createdDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lendingRequest.createdDate" is-open="vm.datePickerOpenStatus.createdDate"
+                    required/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createdDate')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
-            <div ng-show="editForm.date.$invalid">
+            <div ng-show="editForm.createdDate.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.date.$error.required" translate="entity.validation.required">
+                    ng-show="editForm.createdDate.$error.required" translate="entity.validation.required">
                     This field is required.
                 </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="bookster2App.lendingRequest.fromDate" for="field_fromDate">FromDate</label>
+                <div class="input-group">
+                    <input id="field_fromDate" type="text" class="form-control" name="fromDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lendingRequest.fromDate" is-open="vm.datePickerOpenStatus.fromDate"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('fromDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.fromDate.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.date.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
+                    ng-show="editForm.fromDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="bookster2App.lendingRequest.dueDate" for="field_dueDate">DueDate</label>
+                <div class="input-group">
+                    <input id="field_dueDate" type="text" class="form-control" name="dueDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lendingRequest.dueDate" is-open="vm.datePickerOpenStatus.dueDate"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dueDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.dueDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dueDate.$error.required" translate="entity.validation.required">
+                    This field is required.
                 </p>
             </div>
         </div>
@@ -56,8 +84,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label translate="bookster2App.lendingRequest.lending" for="field_lending">lending</label>
-            <select class="form-control" id="field_lending" name="lending" ng-model="vm.lendingRequest.lending" ng-options="lending as lending.id for lending in vm.lendings | orderBy:'id' track by lending.id">
+            <label translate="bookster2App.lendingRequest.copie" for="field_copie">copie</label>
+            <select class="form-control" id="field_copie" name="copie" ng-model="vm.lendingRequest.copie" ng-options="copy as copy.id for copy in vm.copies | orderBy:'id' track by copy.id">
                 <option value=""></option>
             </select>
         </div>

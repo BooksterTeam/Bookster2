@@ -20,16 +20,16 @@
   "fields": [
     {
       "fieldId": 1,
-      "fieldName": "from",
-      "fieldType": "ZonedDateTime",
+      "fieldName": "fromDate",
+      "fieldType": "LocalDate",
       "fieldValidateRules": [
         "required"
       ]
     },
     {
       "fieldId": 2,
-      "fieldName": "due",
-      "fieldType": "ZonedDateTime",
+      "fieldName": "dueDate",
+      "fieldType": "LocalDate",
       "fieldValidateRules": [
         "required"
       ]

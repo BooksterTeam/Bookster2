@@ -38,5 +38,6 @@
                   separator=";"
                   tableName="bookster_user">
         </loadData>
+
     </changeSet>
 </databaseChangeLog>

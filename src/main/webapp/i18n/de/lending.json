@@ -16,8 +16,8 @@
             "detail": {
                 "title": "Lending"
             },
-            "from": "From",
-            "due": "Due",
+            "fromDate": "FromDate",
+            "dueDate": "DueDate",
             "booksterUser": "BooksterUser",
             "copy": "Copy"
         }

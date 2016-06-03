@@ -71,8 +71,8 @@
                     resolve: {
                         entity: function () {
                             return {
-                                from: null,
-                                due: null,
+                                fromDate: null,
+                                dueDate: null,
                                 id: null
                             };
                         }

@@ -6,6 +6,7 @@ import io.bookster.domain.User;
 import io.bookster.repository.AuthorityRepository;
 import io.bookster.repository.UserRepository;
 import io.bookster.security.AuthoritiesConstants;
+import io.bookster.service.BooksterUserService;
 import io.bookster.service.MailService;
 import io.bookster.service.UserService;
 import io.bookster.web.rest.dto.UserDTO;
@@ -62,6 +63,9 @@ public class AccountResourceIntTest {
     @Mock
     private MailService mockMailService;
 
+    @Mock
+    private BooksterUserService booksterUserService;
+
     private MockMvc restUserMockMvc;
 
     private MockMvc restMvc;
@@ -75,11 +79,13 @@ public class AccountResourceIntTest {
         ReflectionTestUtils.setField(accountResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(accountResource, "userService", userService);
         ReflectionTestUtils.setField(accountResource, "mailService", mockMailService);
+        ReflectionTestUtils.setField(accountResource, "booksterUserService", booksterUserService);
 
         AccountResource accountUserMockResource = new AccountResource();
         ReflectionTestUtils.setField(accountUserMockResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(accountUserMockResource, "userService", mockUserService);
         ReflectionTestUtils.setField(accountUserMockResource, "mailService", mockMailService);
+        ReflectionTestUtils.setField(accountUserMockResource, "booksterUserService", booksterUserService);
 
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountUserMockResource).build();

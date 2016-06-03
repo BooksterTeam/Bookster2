@@ -3,14 +3,14 @@
     <h2><span translate="bookster2App.lending.detail.title">Lending</span> {{vm.lending.id}}</h2>
     <hr>
     <dl class="dl-horizontal">
-        <dt><span translate="bookster2App.lending.from">From</dt></dt>
+        <dt><span translate="bookster2App.lending.fromDate">FromDate</dt></dt>
         <dd>
-            <span>{{vm.lending.from | date:'medium'}}</span>
+            <span>{{vm.lending.fromDate | date:'mediumDate'}}</span>
         </dd>
         <hr>
-        <dt><span translate="bookster2App.lending.due">Due</dt></dt>
+        <dt><span translate="bookster2App.lending.dueDate">DueDate</dt></dt>
         <dd>
-            <span>{{vm.lending.due | date:'medium'}}</span>
+            <span>{{vm.lending.dueDate | date:'mediumDate'}}</span>
         </dd>
         <hr>
         <dt><span translate="bookster2App.lending.booksterUser">booksterUser</span></dt>

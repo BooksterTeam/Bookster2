@@ -14,42 +14,34 @@
                     ng-model="vm.lending.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="bookster2App.lending.from" for="field_from">From</label>
+            <label class="control-label" translate="bookster2App.lending.fromDate" for="field_fromDate">FromDate</label>
                 <div class="input-group">
-                    <input id="field_from" type="text" class="form-control" name="from" datetime-picker="{{dateformat}}" ng-model="vm.lending.from" is-open="vm.datePickerOpenStatus.from"
-                    required  />
+                    <input id="field_fromDate" type="text" class="form-control" name="fromDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lending.fromDate" is-open="vm.datePickerOpenStatus.fromDate"
+                    required/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('from')"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('fromDate')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
-            <div ng-show="editForm.from.$invalid">
+            <div ng-show="editForm.fromDate.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.from.$error.required" translate="entity.validation.required">
+                    ng-show="editForm.fromDate.$error.required" translate="entity.validation.required">
                     This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.from.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
                 </p>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="bookster2App.lending.due" for="field_due">Due</label>
+            <label class="control-label" translate="bookster2App.lending.dueDate" for="field_dueDate">DueDate</label>
                 <div class="input-group">
-                    <input id="field_due" type="text" class="form-control" name="due" datetime-picker="{{dateformat}}" ng-model="vm.lending.due" is-open="vm.datePickerOpenStatus.due"
-                    required  />
+                    <input id="field_dueDate" type="text" class="form-control" name="dueDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lending.dueDate" is-open="vm.datePickerOpenStatus.dueDate"
+                    required/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('due')"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dueDate')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
-            <div ng-show="editForm.due.$invalid">
+            <div ng-show="editForm.dueDate.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.due.$error.required" translate="entity.validation.required">
+                    ng-show="editForm.dueDate.$error.required" translate="entity.validation.required">
                     This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.due.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
                 </p>
             </div>
         </div>
