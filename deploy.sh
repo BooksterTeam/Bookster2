@@ -10,8 +10,7 @@ cp build/libs/bookster-2-0.0.1-SNAPSHOT.war ../app.war
 pwd
 ls -l
 cd ..
-mkdir app
-cd app
+ls -l
 git init
 git remote add foobar dokku@bookster.bee.pw:foobar.bookster.bee.pw
 git add app.war
