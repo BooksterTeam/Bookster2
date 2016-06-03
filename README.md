@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/BooksterTeam/Bookster2.svg?branch=master)](https://travis-ci.org/BooksterTeam/Bookster2)
 [![Quality Gate](http://193.196.7.25/api/badges/gate?key=io.bookster:bookster-2)](http://193.196.7.25/overview?id=io.bookster%3Abookster-2)
 [![Coverage Status](https://coveralls.io/repos/github/BooksterTeam/Bookster2/badge.svg?branch=master)](https://coveralls.io/github/BooksterTeam/Bookster2?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcfbc186a6254da2b9f7b91e84223b70)](https://www.codacy.com/app/dan-brown/Bookster2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BooksterTeam/Bookster2&amp;utm_campaign=Badge_Grade)
 # Bookster2
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
