@@ -8,8 +8,8 @@ cp build/libs/bookster-2-0.0.1-SNAPSHOT.war ./app.war
 
 pwd
 git remote add foobar dokku@bookster.bee.pw:foobar.bookster.bee.pw
-git add app.war
-git commit app.war
+#git add app.war
+#git commit app.war
 git push foobar master
 
 #git commit app.war
