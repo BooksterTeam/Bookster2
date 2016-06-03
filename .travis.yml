@@ -8,20 +8,18 @@ env:
     - secure: 3j3C8wvzcDI8p0kDis2p98M95KBrI/Hhh2oRKRJaCYQoXgJzriAC+78Blwy1Oq0ltSZ2QbQHYmEELBiTcho4E/G6nuVOfSlW4KhUl0CXQSn1Hja0N9TXvaVwsB6sZUzp1pwp5/FQm9UGrlgCHEJ3hMxAMDx1tCC17iORGhvjmRkaBHc9d0IdsD6c6tIcSUQtfD68QVY8QPYWHLR56/KKzpmKFQTlr1pKL2T4JwDJHlKJB7QW+Ogb3IdqLNpw2DLugtyhqKejlCxycg4WnJDiF1dXtHN5LqUgMuRQqojzx3xhRQm2O+ckOSx6ENvz0NdHCBBwH9vD2Sh4sesXLryAsK3wZTDUrs2jSVXj41fI4SHqPYZNOmmUHjVtUuc8OBh74ymVG7Cbad3YYcKwwmV0ykvTJt59GWigbTaVsvR73QdrZx/yOLSYvHlzo70GEnY7ri5nZa/JP4A4KABrUpVVlVq91R+M/C4mvyuIITjeG9QV3tYpFJvu5BCyrqr+RThLpLWa4nwRCzOvkTCuuMoVk6Gdb76d9w5gYDtqTiZglIPNxW8DeM1U7Hczolr3+QusLaRyqD3x8V5Nt0AHRkHxy6vDIvHmTkuHPAjyu6hqtbz2cAiN3f6D4mR0J7KIibza/AIxel+pNLdF9a6xr4w6SBECxrWX060JkiILRwdr1NM=
     - secure: kWYqUiO9op6e5u+5ygCSfUVnuTVvXuLYETnllCB5tqcbDN2bO+HUJiS48yA+944KpbnhGVT+6sv1eCwTkrKdTZ7pNmun9IzBIRCrelW+duOv4YCSEYe0mVBUWk7qIDimaSeOLt9Ifz1EsWCJSh+09j9sdaIUbzBmTnNBErl3Jkw3hvBpvR0QFftI8PB3M3w6b4DFr2rR5cRTwAIL06I/awLA+U4/EGZ3zI5gIXTO/08GJebLaGKTjD5gO0nVHT0gptKvJxLfMjUiEZwc3e5DZKq+SMClxmWcw285HPziRlqiYi8MXFU4zVPS6hCDrvmWEIbhS0DNh4yq9johkw3CBuCQAznNlGGXX21boC4g+RP0+WrdgUMT3uN/5LFm4Jw0EroYrjXmP/wnyCxBRDkqINBYgdGU8KnnuTSm/oaAVA/1iuTEaOXuM8foGnbkP/QJOzWsKgK4feYi6xMsyMHTtxwZWiLgpX4Ozp1szmsRjSLyWPRbdca1SBEzIkoJ0bRncuRRJ1MhEeX8qbEFmht8sD/CzxtDX4O1EhvJiYqe/3nwge2HLM2oqPkdXRN0527XZVJD8IG0O7qrCQqilisGHaDUNhtkWwKMvHc9qpHbxEGj5g3fvafPX82D1DwlAfViQGkAlku2yg0C/NMRApPJgPZrKdCOKPp2cEe9T6Imvrk=
 
-addons:
-  sauce_connect: true
-
 before_install:
-  - npm install -g grunt-cli
-  - npm install -g bower
-  - npm install -g tsd
-  - npm install -g chai
-  - npm install -g cucumber
-  - npm install -g protractor
+  - npm install -g grunt-cli bower tsd chai cucumber protractor
+  - openssl aes-256-cbc -K $encrypted_3ae3b20d13af_key -iv $encrypted_3ae3b20d13af_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
+  - chmod 600 ~/.ssh/id_rsa
+  - touch ~/.ssh/known_hosts
 
 script:
-  - ./gradlew test
+  - ./gradlew -Pdev bootrepackage
 
 notifications:
   slack:
     secure: A13nhElYuj/AUL7fwvmiphnBj5zJc/AM5wQYVoiVLz167O3ULB+x4P27bCKkK+1qunW6R5kiqxhvxQvqVIay5ljiF+If1jPT9KfelDx73/lxV81Q044sM1kQCw1Zs2OjaFRgKYAa8/61K9oRSB9978xyhw28pgREdB2e5NOtP6Xpc7axiDpUa8ygFQCPJS8vIP0qJPZzl+zjVkqdGvA5rwI548VJHBzIlz20KVlHmu8wEi19T/elG2vz2DEYGwpxi8XyTHaH0Nslc9Gt8NHkKzDUXotsUJ32Rbiuc7k6ELPQBe72ewDNINWGMZzi7WQO6My16a8tC9h5n5WoMjfJHO1vY2k7FND3ifd/5rMZkSmqG38xpvUbbB7WRcm+w+v1BTTWbV3sqny6hppqffbfQByIXlBWBBbZjgqrnrBBEbsqovuXNvRnZ458UD90WvXszFti7Ek7KPp/fpXH5coYtkP/K79rw6xtKpvb7PDfgpcyJTALsIXYZIciw4FLjzGZupVjU020ogCEHnUtXw0C51NFzPJ/F6d4MdLwV/QDkqO/C4JwqVPF6PJQqiLbrycwQMTg9Gf0EUHEGGFq99eVbCF5EWqNiTwBSi9tsIX1t+M1mYfyg0DT4Yw8u+Hmh9r5LMS+mFWr4W0XA381N1PRreT+hzn+KWAOtCQ+bfGm9Lo=
+
+after_success:
+  - ./deploy.sh
