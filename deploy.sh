@@ -17,6 +17,8 @@ pwd
 
 ssh-keyscan bookster.bee.pw >> ~/.ssh/known_hosts
 rm -rf .git
+rm -rf .gitignore
+
 cp build/libs/bookster-2-0.0.1-SNAPSHOT.war ./app.war
 git init
 git remote add foobar dokku@bookster.bee.pw:foobar.bookster.bee.pw
