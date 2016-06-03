@@ -18,6 +18,8 @@ ssh-keyscan bookster.bee.pw >> ~/.ssh/known_hosts
 
 git init
 git remote add foobar dokku@bookster.bee.pw:foobar.bookster.bee.pw
+ git config --global user.email "dokku@asdfsadf.com"
+  git config --global user.name "dokku"
 git add -A
 git commit -m "Foobat"
 git push foobar master
