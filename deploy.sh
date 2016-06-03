@@ -22,6 +22,7 @@ git config --global user.email "dokku@asdfsadf.com"
 git config --global user.name "dokku"
 git add -A
 git commit -m "Foobat"
-git push foobar :master
-git push -u foobar master
+#git push foobar :master
+git fetch foobar
+git push -f foobar master
 
