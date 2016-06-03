@@ -28,20 +28,28 @@ public class LendingRequest implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
+    @Column(name = "created_date", nullable = false)
+    private LocalDate createdDate;
+
+    @NotNull
+    @Column(name = "from_date", nullable = false)
+    private LocalDate fromDate;
+
+    @NotNull
+    @Column(name = "due_date", nullable = false)
+    private LocalDate dueDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private RequestStatus status;
 
+    @ManyToOne
+    private BooksterUser booksterUser;
+
     @OneToOne
     @JoinColumn(unique = true)
-    private Lending lending;
-
-    @ManyToOne
-    private BooksterUser fromUser;
+    private Copy copie;
 
     public Long getId() {
         return id;
@@ -51,12 +59,28 @@ public class LendingRequest implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LocalDate getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
     public RequestStatus getStatus() {
@@ -67,20 +91,20 @@ public class LendingRequest implements Serializable {
         this.status = status;
     }
 
-    public Lending getLending() {
-        return lending;
+    public BooksterUser getBooksterUser() {
+        return booksterUser;
     }
 
-    public void setLending(Lending lending) {
-        this.lending = lending;
+    public void setBooksterUser(BooksterUser booksterUser) {
+        this.booksterUser = booksterUser;
     }
 
-    public BooksterUser getFromUser() {
-        return fromUser;
+    public Copy getCopie() {
+        return copie;
     }
 
-    public void setFromUser(BooksterUser booksterUser) {
-        this.fromUser = booksterUser;
+    public void setCopie(Copy copy) {
+        this.copie = copy;
     }
 
     @Override
@@ -107,7 +131,9 @@ public class LendingRequest implements Serializable {
     public String toString() {
         return "LendingRequest{" +
             "id=" + id +
-            ", date='" + date + "'" +
+            ", createdDate='" + createdDate + "'" +
+            ", fromDate='" + fromDate + "'" +
+            ", dueDate='" + dueDate + "'" +
             ", status='" + status + "'" +
             '}';
     }

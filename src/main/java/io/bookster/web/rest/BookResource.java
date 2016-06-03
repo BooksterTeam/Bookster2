@@ -2,7 +2,10 @@ package io.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import io.bookster.domain.Book;
+import io.bookster.domain.Copy;
+import io.bookster.repository.CopyRepository;
 import io.bookster.service.BookService;
+import io.bookster.service.CopyService;
 import io.bookster.web.rest.util.HeaderUtil;
 import io.bookster.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -21,6 +24,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -37,7 +41,9 @@ public class BookResource {
         
     @Inject
     private BookService bookService;
-    
+
+    @Inject
+    private CopyRepository copyService;
     /**
      * POST  /books : Create a new book.
      *
@@ -116,6 +122,9 @@ public class BookResource {
     public ResponseEntity<Book> getBook(@PathVariable Long id) {
         log.debug("REST request to get Book : {}", id);
         Book book = bookService.findOne(id);
+        List<Copy> copies = copyService.findAll();
+        Set<Copy> all = copies.stream().filter(copy -> copy.getBook() != null).filter(copy -> copy.getBook().getId().equals(book.getId())).collect(Collectors.toSet());
+        book.setCopies(all);
         return Optional.ofNullable(book)
             .map(result -> new ResponseEntity<>(
                 result,

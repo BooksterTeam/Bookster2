@@ -5,33 +5,26 @@
         .module('bookster2App')
         .controller('LendingRequestController', LendingRequestController);
 
-    LendingRequestController.$inject = ['$scope', '$state', 'LendingRequest', 'LendingRequestSearch', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    LendingRequestController.$inject = ['$scope', '$state', 'LendingRequest', 'LendingRequestSearch', 'ParseLinks', 'AlertService'];
 
-    function LendingRequestController ($scope, $state, LendingRequest, LendingRequestSearch, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function LendingRequestController ($scope, $state, LendingRequest, LendingRequestSearch, ParseLinks, AlertService) {
         var vm = this;
-        vm.loadAll = loadAll;
-        vm.loadPage = loadPage;
-        vm.predicate = pagingParams.predicate;
-        vm.reverse = pagingParams.ascending;
-        vm.transition = transition;
-        vm.clear = clear;
-        vm.search = search;
-        vm.searchQuery = pagingParams.search;
-        vm.currentSearch = pagingParams.search;
-        vm.loadAll();
-
-        function loadAll () {
-            if (pagingParams.search) {
+        vm.lendingRequests = [];
+        vm.predicate = 'id';
+        vm.reverse = true;
+        vm.page = 0;
+        vm.loadAll = function() {
+            if (vm.currentSearch) {
                 LendingRequestSearch.query({
-                    query: pagingParams.search,
-                    page: pagingParams.page - 1,
-                    size: paginationConstants.itemsPerPage,
+                    query: vm.currentSearch,
+                    page: vm.page,
+                    size: 20,
                     sort: sort()
                 }, onSuccess, onError);
             } else {
                 LendingRequest.query({
-                    page: pagingParams.page - 1,
-                    size: paginationConstants.itemsPerPage,
+                    page: vm.page,
+                    size: 20,
                     sort: sort()
                 }, onSuccess, onError);
             }
@@ -45,48 +38,49 @@
             function onSuccess(data, headers) {
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
-                vm.queryCount = vm.totalItems;
-                vm.lendingRequests = data;
-                vm.page = pagingParams.page;
+                for (var i = 0; i < data.length; i++) {
+                    vm.lendingRequests.push(data[i]);
+                }
             }
             function onError(error) {
                 AlertService.error(error.data.message);
             }
-        }
-
-        function loadPage (page) {
+        };
+        vm.reset = function() {
+            vm.page = 0;
+            vm.lendingRequests = [];
+            vm.loadAll();
+        };
+        vm.loadPage = function(page) {
             vm.page = page;
-            vm.transition();
-        }
+            vm.loadAll();
+        };
 
-        function transition () {
-            $state.transitionTo($state.$current, {
-                page: vm.page,
-                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
-            });
-        }
-
-        function search (searchQuery) {
+        vm.search = function (searchQuery) {
             if (!searchQuery){
                 return vm.clear();
             }
+            vm.lendingRequests = [];
             vm.links = null;
-            vm.page = 1;
+            vm.page = 0;
             vm.predicate = '_score';
             vm.reverse = false;
             vm.currentSearch = searchQuery;
-            vm.transition();
-        }
+            vm.loadAll();
+        };
 
-        function clear () {
+        vm.clear = function () {
+            vm.lendingRequests = [];
             vm.links = null;
-            vm.page = 1;
+            vm.page = 0;
             vm.predicate = 'id';
             vm.reverse = true;
+            vm.searchQuery = null;
             vm.currentSearch = null;
-            vm.transition();
-        }
+            vm.loadAll();
+        };
+
+        vm.loadAll();
 
     }
 })();

@@ -34,25 +34,25 @@
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
-                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="fromDate"><span translate="bookster2App.lending.fromDate">FromDate</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="dueDate"><span translate="bookster2App.lending.dueDate">DueDate</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="holder.id"><span translate="bookster2App.lending.holder">holder</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="copie.id"><span translate="bookster2App.lending.copie">copie</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="booksterUser.id"><span translate="bookster2App.lending.booksterUser">booksterUser</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="copy.id"><span translate="bookster2App.lending.copy">copy</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
                 <tr ng-repeat="lending in vm.lendings track by lending.id">
                     <td><a ui-sref="lending-detail({id:lending.id})">{{lending.id}}</a></td>
                         <td>{{lending.fromDate | date:'mediumDate'}}</td>
                         <td>{{lending.dueDate | date:'mediumDate'}}</td>
                     <td>
-                        <a ui-sref="bookster-user-detail({id:lending.holder.id})">{{lending.holder.id}}</a>
+                        <a ui-sref="bookster-user-detail({id:lending.booksterUser.id})">{{lending.booksterUser.id}}</a>
                     </td>
                     <td>
-                        <a ui-sref="copy-detail({id:lending.copie.id})">{{lending.copie.id}}</a>
+                        <a ui-sref="copy-detail({id:lending.copy.id})">{{lending.copy.id}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
@@ -80,8 +80,4 @@
             </tbody>
         </table>
     </div>
-    <div class="text-center">
-        <jhi-item-count page="vm.page" total="vm.queryCount"></jhi-item-count>
-    </div>
-    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
 </div>

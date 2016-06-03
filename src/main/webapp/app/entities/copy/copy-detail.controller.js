@@ -5,9 +5,9 @@
         .module('bookster2App')
         .controller('CopyDetailController', CopyDetailController);
 
-    CopyDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Copy', 'Book', 'Lending', 'BooksterUser'];
+    CopyDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Copy', 'Book', 'BooksterUser'];
 
-    function CopyDetailController($scope, $rootScope, $stateParams, entity, Copy, Book, Lending, BooksterUser) {
+    function CopyDetailController($scope, $rootScope, $stateParams, entity, Copy, Book, BooksterUser) {
         var vm = this;
         vm.copy = entity;
         vm.load = function (id) {

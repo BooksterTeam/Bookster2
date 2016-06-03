@@ -1,0 +1,51 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.borrow(vm.copiBorrowId)" show-validation>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title">Request to borrow the copy {{vm.copi.id}} of the book {{vm.bookId}}</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <p translate="bookster2App.book.delete.question" translate-values="{id: '{{vm.book.id}}'}">Please give us some information </p>
+        <div class="form-group">
+            <label class="control-label" translate="bookster2App.lending.fromDate" for="field_fromDate">FromDate</label>
+            <div class="input-group">
+                <input id="field_fromDate" type="text" class="form-control" name="fromDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lending.fromDate" is-open="vm.datePickerOpenStatus.fromDate"
+                       required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('fromDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+            </div>
+            <div ng-show="editForm.fromDate.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.fromDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="bookster2App.lending.dueDate" for="field_dueDate">DueDate</label>
+            <div class="input-group">
+                <input id="field_dueDate" type="text" class="form-control" name="dueDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lending.dueDate" is-open="vm.datePickerOpenStatus.dueDate"
+                       required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dueDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+            </div>
+            <div ng-show="editForm.dueDate.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.dueDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+        </button>
+    </div>
+</form>

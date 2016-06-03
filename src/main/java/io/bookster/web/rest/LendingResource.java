@@ -88,7 +88,6 @@ public class LendingResource {
      * GET  /lendings : get all the lendings.
      *
      * @param pageable the pagination information
-     * @param filter the filter of the request
      * @return the ResponseEntity with status 200 (OK) and the list of lendings in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
@@ -96,13 +95,8 @@ public class LendingResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Lending>> getAllLendings(Pageable pageable, @RequestParam(required = false) String filter)
+    public ResponseEntity<List<Lending>> getAllLendings(Pageable pageable)
         throws URISyntaxException {
-        if ("lendingrequest-is-null".equals(filter)) {
-            log.debug("REST request to get all Lendings where lendingRequest is null");
-            return new ResponseEntity<>(lendingService.findAllWhereLendingRequestIsNull(),
-                    HttpStatus.OK);
-        }
         log.debug("REST request to get a page of Lendings");
         Page<Lending> page = lendingService.findAll(pageable); 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/lendings");

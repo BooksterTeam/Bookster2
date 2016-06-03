@@ -47,14 +47,14 @@
         </div>
 
         <div class="form-group">
-            <label translate="bookster2App.lending.holder" for="field_holder">holder</label>
-            <select class="form-control" id="field_holder" name="holder" ng-model="vm.lending.holder" ng-options="booksterUser as booksterUser.id for booksterUser in vm.booksterusers track by booksterUser.id">
+            <label translate="bookster2App.lending.booksterUser" for="field_booksterUser">booksterUser</label>
+            <select class="form-control" id="field_booksterUser" name="booksterUser" ng-model="vm.lending.booksterUser" ng-options="booksterUser as booksterUser.id for booksterUser in vm.booksterusers track by booksterUser.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="bookster2App.lending.copie" for="field_copie">copie</label>
-            <select class="form-control" id="field_copie" name="copie" ng-model="vm.lending.copie" ng-options="copy as copy.id for copy in vm.copys track by copy.id">
+            <label translate="bookster2App.lending.copy" for="field_copy">copy</label>
+            <select class="form-control" id="field_copy" name="copy" ng-model="vm.lending.copy" ng-options="copy as copy.id for copy in vm.copys | orderBy:'id' track by copy.id">
                 <option value=""></option>
             </select>
         </div>

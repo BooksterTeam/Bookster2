@@ -26,20 +26,24 @@ public class BooksterUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "booksterUser")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Copy> copies = new HashSet<>();
+    private Set<LendingRequest> froms = new HashSet<>();
 
-    @OneToMany(mappedBy = "holder")
+    @OneToMany(mappedBy = "booksterUser")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Copy> ownerCopies = new HashSet<>();
+
+    @OneToMany(mappedBy = "booksterUser")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Lending> lendings = new HashSet<>();
 
-    @OneToMany(mappedBy = "fromUser")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<LendingRequest> lendingRequests = new HashSet<>();
+    @OneToOne
+    @JoinColumn(unique = true)
+    private User user;
 
     public Long getId() {
         return id;
@@ -49,12 +53,20 @@ public class BooksterUser implements Serializable {
         this.id = id;
     }
 
-    public Set<Copy> getCopies() {
-        return copies;
+    public Set<LendingRequest> getFroms() {
+        return froms;
     }
 
-    public void setCopies(Set<Copy> copys) {
-        this.copies = copys;
+    public void setFroms(Set<LendingRequest> lendingRequests) {
+        this.froms = lendingRequests;
+    }
+
+    public Set<Copy> getOwnerCopies() {
+        return ownerCopies;
+    }
+
+    public void setOwnerCopies(Set<Copy> copys) {
+        this.ownerCopies = copys;
     }
 
     public Set<Lending> getLendings() {
@@ -65,12 +77,12 @@ public class BooksterUser implements Serializable {
         this.lendings = lendings;
     }
 
-    public Set<LendingRequest> getLendingRequests() {
-        return lendingRequests;
+    public User getUser() {
+        return user;
     }
 
-    public void setLendingRequests(Set<LendingRequest> lendingRequests) {
-        this.lendingRequests = lendingRequests;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

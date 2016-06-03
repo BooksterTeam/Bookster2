@@ -2,25 +2,19 @@
   "relationships": [
     {
       "relationshipId": 1,
-      "relationshipType": "one-to-one",
-      "relationshipName": "lendingRequest",
-      "otherEntityName": "lendingRequest",
-      "ownerSide": false,
-      "otherEntityRelationshipName": "lending"
+      "relationshipName": "booksterUser",
+      "otherEntityName": "booksterUser",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
     },
     {
       "relationshipId": 2,
-      "relationshipType": "many-to-one",
-      "relationshipName": "holder",
-      "otherEntityName": "booksterUser",
-      "otherEntityField": "id"
-    },
-    {
-      "relationshipId": 3,
-      "relationshipType": "many-to-one",
-      "relationshipName": "copie",
+      "relationshipName": "copy",
       "otherEntityName": "copy",
-      "otherEntityField": "id"
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "lending"
     }
   ],
   "fields": [
@@ -43,7 +37,6 @@
   ],
   "changelogDate": "20160412123938",
   "dto": "no",
-  "pagination": "pager",
-  "service": "serviceClass",
-  "entityTableName": "lending"
+  "pagination": "infinite-scroll",
+  "service": "serviceClass"
 }

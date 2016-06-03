@@ -5,14 +5,21 @@
         .module('bookster2App')
         .controller('LendingDialogController', LendingDialogController);
 
-    LendingDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Lending', 'LendingRequest', 'BooksterUser', 'Copy'];
+    LendingDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Lending', 'BooksterUser', 'Copy'];
 
-    function LendingDialogController ($scope, $stateParams, $uibModalInstance, entity, Lending, LendingRequest, BooksterUser, Copy) {
+    function LendingDialogController ($scope, $stateParams, $uibModalInstance, $q, entity, Lending, BooksterUser, Copy) {
         var vm = this;
         vm.lending = entity;
-        vm.lendingrequests = LendingRequest.query();
         vm.booksterusers = BooksterUser.query();
-        vm.copys = Copy.query();
+        vm.copys = Copy.query({filter: 'lending-is-null'});
+        $q.all([vm.lending.$promise, vm.copys.$promise]).then(function() {
+            if (!vm.lending.copy || !vm.lending.copy.id) {
+                return $q.reject();
+            }
+            return Copy.get({id : vm.lending.copy.id}).$promise;
+        }).then(function(copy) {
+            vm.copys.push(copy);
+        });
         vm.load = function(id) {
             Lending.get({id : id}, function(result) {
                 vm.lending = result;

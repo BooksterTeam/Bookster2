@@ -13,14 +13,14 @@
             <span>{{vm.lending.dueDate | date:'mediumDate'}}</span>
         </dd>
         <hr>
-        <dt><span translate="bookster2App.lending.holder">holder</span></dt>
+        <dt><span translate="bookster2App.lending.booksterUser">booksterUser</span></dt>
         <dd>
-            <a ui-sref="bookster-user-detail({id:vm.lending.holder.id})">{{vm.lending.holder.id}}</a>
+            <a ui-sref="bookster-user-detail({id:vm.lending.booksterUser.id})">{{vm.lending.booksterUser.id}}</a>
         </dd>
         <hr>
-        <dt><span translate="bookster2App.lending.copie">copie</span></dt>
+        <dt><span translate="bookster2App.lending.copy">copy</span></dt>
         <dd>
-            <a ui-sref="copy-detail({id:vm.lending.copie.id})">{{vm.lending.copie.id}}</a>
+            <a ui-sref="copy-detail({id:vm.lending.copy.id})">{{vm.lending.copy.id}}</a>
         </dd>
         <hr>
     </dl>

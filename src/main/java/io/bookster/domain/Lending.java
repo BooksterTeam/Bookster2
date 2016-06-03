@@ -1,6 +1,5 @@
 package io.bookster.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -34,15 +33,12 @@ public class Lending implements Serializable {
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
 
-    @OneToOne(mappedBy = "lending")
-    @JsonIgnore
-    private LendingRequest lendingRequest;
-
     @ManyToOne
-    private BooksterUser holder;
+    private BooksterUser booksterUser;
 
-    @ManyToOne
-    private Copy copie;
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Copy copy;
 
     public Long getId() {
         return id;
@@ -68,28 +64,20 @@ public class Lending implements Serializable {
         this.dueDate = dueDate;
     }
 
-    public LendingRequest getLendingRequest() {
-        return lendingRequest;
+    public BooksterUser getBooksterUser() {
+        return booksterUser;
     }
 
-    public void setLendingRequest(LendingRequest lendingRequest) {
-        this.lendingRequest = lendingRequest;
+    public void setBooksterUser(BooksterUser booksterUser) {
+        this.booksterUser = booksterUser;
     }
 
-    public BooksterUser getHolder() {
-        return holder;
+    public Copy getCopy() {
+        return copy;
     }
 
-    public void setHolder(BooksterUser booksterUser) {
-        this.holder = booksterUser;
-    }
-
-    public Copy getCopie() {
-        return copie;
-    }
-
-    public void setCopie(Copy copy) {
-        this.copie = copy;
+    public void setCopy(Copy copy) {
+        this.copy = copy;
     }
 
     @Override

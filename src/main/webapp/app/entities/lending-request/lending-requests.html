@@ -34,25 +34,29 @@
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
-                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="date"><span translate="bookster2App.lendingRequest.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createdDate"><span translate="bookster2App.lendingRequest.createdDate">CreatedDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fromDate"><span translate="bookster2App.lendingRequest.fromDate">FromDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dueDate"><span translate="bookster2App.lendingRequest.dueDate">DueDate</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status"><span translate="bookster2App.lendingRequest.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="lending.id"><span translate="bookster2App.lendingRequest.lending">lending</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="fromUser.id"><span translate="bookster2App.lendingRequest.fromUser">fromUser</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="booksterUser.id"><span translate="bookster2App.lendingRequest.booksterUser">booksterUser</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="copie.id"><span translate="bookster2App.lendingRequest.copie">copie</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
                 <tr ng-repeat="lendingRequest in vm.lendingRequests track by lendingRequest.id">
                     <td><a ui-sref="lending-request-detail({id:lendingRequest.id})">{{lendingRequest.id}}</a></td>
-                        <td>{{lendingRequest.date | date:'mediumDate'}}</td>
+                        <td>{{lendingRequest.createdDate | date:'mediumDate'}}</td>
+                        <td>{{lendingRequest.fromDate | date:'mediumDate'}}</td>
+                        <td>{{lendingRequest.dueDate | date:'mediumDate'}}</td>
                     <td translate="{{'bookster2App.RequestStatus.' + lendingRequest.status}}">{{lendingRequest.status}}</td>
                     <td>
-                        <a ui-sref="lending-detail({id:lendingRequest.lending.id})">{{lendingRequest.lending.id}}</a>
+                        <a ui-sref="bookster-user-detail({id:lendingRequest.booksterUser.id})">{{lendingRequest.booksterUser.id}}</a>
                     </td>
                     <td>
-                        <a ui-sref="bookster-user-detail({id:lendingRequest.fromUser.id})">{{lendingRequest.fromUser.id}}</a>
+                        <a ui-sref="copy-detail({id:lendingRequest.copie.id})">{{lendingRequest.copie.id}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
@@ -80,8 +84,4 @@
             </tbody>
         </table>
     </div>
-    <div class="text-center">
-        <jhi-item-count page="vm.page" total="vm.queryCount"></jhi-item-count>
-    </div>
-    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
 </div>

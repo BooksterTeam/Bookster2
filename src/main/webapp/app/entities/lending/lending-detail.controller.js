@@ -5,9 +5,9 @@
         .module('bookster2App')
         .controller('LendingDetailController', LendingDetailController);
 
-    LendingDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Lending', 'LendingRequest', 'BooksterUser', 'Copy'];
+    LendingDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Lending', 'BooksterUser', 'Copy'];
 
-    function LendingDetailController($scope, $rootScope, $stateParams, entity, Lending, LendingRequest, BooksterUser, Copy) {
+    function LendingDetailController($scope, $rootScope, $stateParams, entity, Lending, BooksterUser, Copy) {
         var vm = this;
         vm.lending = entity;
         vm.load = function (id) {

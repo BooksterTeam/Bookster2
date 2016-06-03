@@ -30,7 +30,7 @@
             </column>
             
             <column name="book_id" type="bigint"/>
-            <column name="owner_id" type="bigint"/>
+            <column name="bookster_user_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
@@ -40,11 +40,15 @@
                                  referencedColumnNames="id"
                                  referencedTableName="book"/>
 
-        <addForeignKeyConstraint baseColumnNames="owner_id"
+        <addForeignKeyConstraint baseColumnNames="bookster_user_id"
                                  baseTableName="copy"
-                                 constraintName="fk_copy_owner_id"
+                                 constraintName="fk_copy_booksteruser_id"
                                  referencedColumnNames="id"
                                  referencedTableName="bookster_user"/>
-
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/copies.csv"
+                  separator=";"
+                  tableName="copy">
+        </loadData>
     </changeSet>
 </databaseChangeLog>

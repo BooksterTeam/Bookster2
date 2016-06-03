@@ -29,20 +29,22 @@
                 <constraints nullable="false" />
             </column>
             
-            <column name="holder_id" type="bigint"/>
-            <column name="copie_id" type="bigint"/>
+            <column name="bookster_user_id" type="bigint"/>
+            <column name="copy_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
-        <addForeignKeyConstraint baseColumnNames="holder_id"
+        <addForeignKeyConstraint baseColumnNames="bookster_user_id"
                                  baseTableName="lending"
-                                 constraintName="fk_lending_holder_id"
+                                 constraintName="fk_lending_booksteruser_id"
                                  referencedColumnNames="id"
                                  referencedTableName="bookster_user"/>
 
-        <addForeignKeyConstraint baseColumnNames="copie_id"
+        <addForeignKeyConstraint baseColumnNames="copy_id"
                                  baseTableName="lending"
-                                 constraintName="fk_lending_copie_id"
+                                 constraintName="fk_lending_copy_id"
                                  referencedColumnNames="id"
                                  referencedTableName="copy"/>
 

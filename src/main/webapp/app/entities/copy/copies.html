@@ -6,7 +6,7 @@
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="copy.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span class="hidden-xs"  translate="bookster2App.copy.home.createLabel" id="copy-add-button">
+                    <span class="hidden-xs"  translate="bookster2App.copy.home.createLabel">
                         Create new Copy
                     </span>
                 </button>
@@ -39,7 +39,7 @@
                     <th jh-sort-by="verified"><span translate="bookster2App.copy.verified">Verified</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="available"><span translate="bookster2App.copy.available">Available</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="book.id"><span translate="bookster2App.copy.book">book</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="owner.id"><span translate="bookster2App.copy.owner">owner</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="booksterUser.id"><span translate="bookster2App.copy.booksterUser">booksterUser</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -52,7 +52,7 @@
                         <a ui-sref="book-detail({id:copy.book.id})">{{copy.book.id}}</a>
                     </td>
                     <td>
-                        <a ui-sref="bookster-user-detail({id:copy.owner.id})">{{copy.owner.id}}</a>
+                        <a ui-sref="bookster-user-detail({id:copy.booksterUser.id})">{{copy.booksterUser.id}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
@@ -82,6 +82,6 @@
     </div>
     <div class="text-center">
         <jhi-item-count page="vm.page" total="vm.queryCount"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
     </div>
-    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
 </div>

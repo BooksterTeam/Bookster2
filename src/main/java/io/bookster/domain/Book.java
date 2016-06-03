@@ -49,7 +49,7 @@ public class Book implements Serializable {
     private Set<Author> bookAuthors = new HashSet<>();
 
     @OneToMany(mappedBy = "book")
-    @JsonIgnore
+    //@JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Copy> copies = new HashSet<>();
 

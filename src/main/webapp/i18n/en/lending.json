@@ -18,9 +18,8 @@
             },
             "fromDate": "FromDate",
             "dueDate": "DueDate",
-            "lendingRequest": "LendingRequest",
-            "holder": "Holder",
-            "copie": "Copie"
+            "booksterUser": "BooksterUser",
+            "copy": "Copy"
         }
     }
 }

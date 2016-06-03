@@ -2,30 +2,38 @@
   "relationships": [
     {
       "relationshipId": 1,
+      "relationshipName": "from",
+      "otherEntityName": "lendingRequest",
       "relationshipType": "one-to-many",
-      "relationshipName": "copie",
-      "otherEntityName": "copy",
-      "otherEntityRelationshipName": "owner"
+      "otherEntityRelationshipName": "booksterUser"
     },
     {
       "relationshipId": 2,
+      "relationshipName": "ownerCopie",
+      "otherEntityName": "copy",
       "relationshipType": "one-to-many",
-      "relationshipName": "lending",
-      "otherEntityName": "lending",
-      "otherEntityRelationshipName": "holder"
+      "otherEntityRelationshipName": "booksterUser"
     },
     {
       "relationshipId": 3,
+      "relationshipName": "lending",
+      "otherEntityName": "lending",
       "relationshipType": "one-to-many",
-      "relationshipName": "lendingRequest",
-      "otherEntityName": "lendingRequest",
-      "otherEntityRelationshipName": "fromUser"
+      "otherEntityRelationshipName": "booksterUser"
+    },
+    {
+      "relationshipId": 4,
+      "relationshipName": "user",
+      "otherEntityName": "user",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "booksterUser"
     }
   ],
   "fields": [],
-  "changelogDate": "20160412123935",
+  "changelogDate": "20160529171903",
   "dto": "no",
-  "pagination": "pager",
-  "service": "serviceClass",
-  "entityTableName": "bookster_user"
+  "pagination": "pagination",
+  "service": "serviceClass"
 }

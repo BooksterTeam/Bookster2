@@ -2,24 +2,23 @@
   "relationships": [
     {
       "relationshipId": 1,
-      "relationshipType": "many-to-many",
-      "relationshipName": "bookAuthor",
-      "otherEntityName": "author",
-      "otherEntityField": "id",
-      "ownerSide": true
+      "relationshipName": "copie",
+      "otherEntityName": "copy",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "book"
     },
     {
       "relationshipId": 2,
+      "relationshipName": "tag",
+      "otherEntityName": "tag",
       "relationshipType": "one-to-many",
-      "relationshipName": "copie",
-      "otherEntityName": "copy",
       "otherEntityRelationshipName": "book"
     },
     {
       "relationshipId": 3,
+      "relationshipName": "author",
+      "otherEntityName": "author",
       "relationshipType": "one-to-many",
-      "relationshipName": "bookTag",
-      "otherEntityName": "tag",
       "otherEntityRelationshipName": "book"
     }
   ],
@@ -47,13 +46,23 @@
     },
     {
       "fieldId": 4,
-      "fieldName": "year",
-      "fieldType": "Integer"
+      "fieldName": "verified",
+      "fieldType": "Boolean",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "published",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": [
+        "required"
+      ]
     }
   ],
   "changelogDate": "20160412123934",
   "dto": "no",
-  "pagination": "pager",
-  "service": "serviceClass",
-  "entityTableName": "book"
+  "pagination": "pagination",
+  "service": "serviceClass"
 }
