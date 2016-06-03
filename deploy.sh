@@ -16,6 +16,7 @@ pwd
 
 ssh-keyscan bookster.bee.pw >> ~/.ssh/known_hosts
 
+git init
 git remote add foobar dokku@bookster.bee.pw:foobar.bookster.bee.pw
 git add -A
 git commit -m "Foobat"
