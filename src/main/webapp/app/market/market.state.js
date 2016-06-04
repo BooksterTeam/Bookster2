@@ -71,6 +71,7 @@
                 $translatePartialLoader.addPart('book');
                 $translatePartialLoader.addPart('copy');
                 $translatePartialLoader.addPart('lending');
+                $translatePartialLoader.addPart('lendingRequest');
                 return $translate.refresh();
               }],
               entity: ['Copy','$log', function(Copy, $log) {
@@ -85,9 +86,9 @@
               }]
             }
           }).result.then(function() {
-            $state.go('book', null, { reload: true });
+            $state.go('market-detail', null, { reload: true });
           }, function() {
-            $state.go('^');
+            $state.go('market-detail');
           });
         }]
       });

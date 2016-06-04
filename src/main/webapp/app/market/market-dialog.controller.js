@@ -5,26 +5,34 @@
         .module('bookster2App')
         .controller('MarketDialogController',MarketDialogController);
 
-    MarketDialogController.$inject = ['$uibModalInstance', 'entity', 'LendingRequest', '$log'];
+    MarketDialogController.$inject = ['$scope','$uibModalInstance', 'entity', '$log', 'Market', 'AlertService'];
 
-    function MarketDialogController($uibModalInstance, entity, LendingRequest, $log) {
+    function MarketDialogController($scope, $uibModalInstance, entity, $log, Market, AlertService) {
         var vm = this;
-        $log.log(entity)
-        vm.bookId = entity.bookId
-        vm.copi = entity.copi;
 
-        $log.log(vm)
+        vm.lendingrequest = {};
+        vm.bookId = entity.bookId;
+        vm.copi = entity.copi;;
+
+        var onSaveSuccess = function (result) {
+            $uibModalInstance.close(result);
+            vm.isSaving = false;
+        };
+
+        var onSaveError = function (result) {
+            vm.isSaving = false;
+            $log.info(result)
+        };
+
         vm.clear = function() {
             $uibModalInstance.dismiss('cancel');
         };
-        vm.borrow = function (copyId) {
-            $log.log(copyId)
-            $log.log("Here")
-            //$log.log(vm.book)
-            /*Market.delete({id: id},
-                function () {
-                    $uibModalInstance.close(true);
-                });*/
+
+        vm.borrow = function () {
+            vm.isSaving = true;
+            vm.lendingrequest.copie = vm.copi;
+
+            Market.save(vm.lendingrequest, onSaveSuccess, onSaveError)
         };
 
         vm.datePickerOpenStatus = {};

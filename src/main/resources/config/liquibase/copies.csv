@@ -1,2 +1,7 @@
 id;verified;available;book_id;bookster_user_id
 1;True;True;1001;1
+2;True;True;1001;2
+3;True;True;1001;2
+4;True;True;1002;3
+5;True;True;1004;1
+6;True;True;1005;1

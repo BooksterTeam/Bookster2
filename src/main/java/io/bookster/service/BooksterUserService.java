@@ -1,6 +1,7 @@
 package io.bookster.service;
 
 import io.bookster.domain.BooksterUser;
+import io.bookster.domain.User;
 import io.bookster.repository.BooksterUserRepository;
 import io.bookster.repository.search.BooksterUserSearchRepository;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -92,5 +94,12 @@ public class BooksterUserService {
     public Page<BooksterUser> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of BooksterUsers for query {}", query);
         return booksterUserSearchRepository.search(queryStringQuery(query), pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<BooksterUser> findByUser(User user){
+        List<BooksterUser> booksterUsers = booksterUserRepository.findAll();
+        Optional<BooksterUser> booksterUser = booksterUsers.stream().filter(findBooks -> findBooks.getUser().getId().equals(user.getId())).findAny();
+        return booksterUser;
     }
 }

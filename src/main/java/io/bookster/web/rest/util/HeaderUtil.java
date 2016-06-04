@@ -4,7 +4,6 @@ import org.springframework.http.HttpHeaders;
 
 /**
  * Utility class for HTTP headers creation.
- *
  */
 public class HeaderUtil {
 
@@ -30,6 +29,13 @@ public class HeaderUtil {
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-bookster2App-error", "error." + errorKey);
+        headers.add("X-bookster2App-params", entityName);
+        return headers;
+    }
+
+    public static HttpHeaders createFailureAlertMessage(String entityName, String defaultMessage) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-bookster2App-error", defaultMessage);
         headers.add("X-bookster2App-params", entityName);
         return headers;
     }
