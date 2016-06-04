@@ -6,11 +6,11 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <p translate="bookster2App.book.delete.question" translate-values="{id: '{{vm.book.id}}'}">Please give us some information </p>
+        <p translate-values="{id: '{{vm.book.id}}'}">In which time period do you want to borrow the book?</p>
         <div class="form-group">
             <label class="control-label" translate="bookster2App.lending.fromDate" for="field_fromDate">FromDate</label>
             <div class="input-group">
-                <input id="field_fromDate" type="text" class="form-control" name="fromDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lending.fromDate" is-open="vm.datePickerOpenStatus.fromDate"
+                <input id="field_fromDate" type="text" class="form-control" name="fromDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lendingrequest.fromDate" is-open="vm.datePickerOpenStatus.fromDate"
                        required/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('fromDate')"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -26,7 +26,7 @@
         <div class="form-group">
             <label class="control-label" translate="bookster2App.lending.dueDate" for="field_dueDate">DueDate</label>
             <div class="input-group">
-                <input id="field_dueDate" type="text" class="form-control" name="dueDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lending.dueDate" is-open="vm.datePickerOpenStatus.dueDate"
+                <input id="field_dueDate" type="text" class="form-control" name="dueDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.lendingrequest.dueDate" is-open="vm.datePickerOpenStatus.dueDate"
                        required/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dueDate')"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -44,8 +44,8 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
-            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-info">
+            <span class="glyphicon glyphicon-send"></span>&nbsp;<span>Send</span>
         </button>
     </div>
 </form>
