@@ -8,7 +8,7 @@
 
     function Market($resource) {
 
-        var resourceUrl = 'api/books/:id';
+        var resourceUrl = 'api/market/borrow';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
