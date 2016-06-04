@@ -11,7 +11,7 @@
         var vm = this;
 
         vm.lendingrequest = {};
-        vm.bookId = entity.bookId
+        vm.bookId = entity.bookId;
         vm.copi = entity.copi;;
 
         var onSaveSuccess = function (result) {
@@ -19,8 +19,9 @@
             vm.isSaving = false;
         };
 
-        var onSaveError = function () {
+        var onSaveError = function (result) {
             vm.isSaving = false;
+            $log.info(result)
         };
 
         vm.clear = function() {
@@ -29,7 +30,8 @@
 
         vm.borrow = function () {
             vm.isSaving = true;
-            vm.lendingrequest.copie = vm.copi
+            vm.lendingrequest.copie = vm.copi;
+
             Market.save(vm.lendingrequest, onSaveSuccess, onSaveError)
         };
 
