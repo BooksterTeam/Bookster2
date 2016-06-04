@@ -86,7 +86,9 @@
               }]
             }
           }).result.then(function() {
-            $state.go($state.parent, {}, {reload: true});
+            $state.go('market-detail', null, { reload: true });
+          }, function() {
+            $state.go('market-detail');
           });
         }]
       });
