@@ -5,6 +5,7 @@ import io.bookster.domain.BooksterUser;
 import io.bookster.domain.Copy;
 import io.bookster.domain.LendingRequest;
 import io.bookster.domain.User;
+import io.bookster.domain.enumeration.RequestStatus;
 import io.bookster.service.*;
 import io.bookster.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -80,13 +81,13 @@ public class MarketResource {
 
         copy.setAvailable(false);
         copyService.save(copy);
-
+        log.info("Copy:{}", copy);
         //TODO sent Email
         BooksterUser owner = copy.getBooksterUser();
 
-
         lendingRequest.setBooksterUser(requestFrom.get());
-
+        lendingRequest.setCopie(copy);
+        lendingRequest.setStatus(RequestStatus.PENDING);
         lendingRequestService.save(lendingRequest);
 
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("Successfully created the request", "Success")).body(lendingRequest);

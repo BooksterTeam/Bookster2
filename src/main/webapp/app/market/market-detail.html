@@ -1,4 +1,5 @@
 <div>
+    <jhi-alert></jhi-alert>
     <div ng-show="vm.book.id == null">
         <div id="book-not-found" class="alert alert-danger" ng-show="vm.book.id == null">
             Book with id <strong>({{vm.fakeid}})</strong> does not exist.
@@ -42,13 +43,16 @@
             <dt><span translate="bookster2App.copy.home.title">Copies</span></dt>
             <dd>
             <span ng-repeat="copi in vm.book.copies">
-                <a ui-sref="copy-detail({id: {{copi.id}}})">{{copi.id}}</a>{{$last ? '' : ', '}}
+                <p ng-show="copi.available">
+                    {{copi.available}}
+                <a ui-sref="copy-detail({id: {{copi.id}}})">{{copi.id}}</a>{{$last ? '' : ' '}}
                 <button type="submit"
                         ui-sref="market.borrow({id:vm.book.id, copyId: {{copi.id}}})"
                         class="btn btn-info btn-sm"
                         >
                     <span class="glyphicon glyphicon-send"></span>&nbsp;
                 </button>
+                </p>
             </span>
             </dd>
         </dl>

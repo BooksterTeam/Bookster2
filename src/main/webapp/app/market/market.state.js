@@ -85,6 +85,8 @@
                 return res;
               }]
             }
+          }).result.then(function() {
+            $state.go($state.parent, {}, {reload: true});
           });
         }]
       });
