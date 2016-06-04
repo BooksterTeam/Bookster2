@@ -68,15 +68,22 @@ public class MarketResource {
         LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         lendingRequest.setCreatedDate(date);
 
+        LocalDate from = lendingRequest.getFromDate();
+        LocalDate due = lendingRequest.getDueDate();
+
+        if(from.isAfter(due)){
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlertMessage("dates", "Your dates are incorrect")).body(null);
+        }
+
         User user = userService.getUserWithAuthorities();
         Optional<BooksterUser> requestFrom = booksterUserService.findByUser(user);
         if (!requestFrom.isPresent()) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("booksterUser", "notexists", "The current logged in user does not have a booksterUser")).body(null);
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlertMessage("booksterUser", "The current logged in user does not have a booksterUser")).body(null);
         }
 
         Copy copy = lendingRequest.getCopie();
         if (!copy.isAvailable()) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("copy", "notavailable", "The copy is currently not available")).body(null);
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlertMessage("copy", "The copy is currently not available")).body(null);
         }
 
         copy.setAvailable(false);
