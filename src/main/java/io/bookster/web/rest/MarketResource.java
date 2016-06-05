@@ -76,8 +76,8 @@ public class MarketResource {
         }
 
         User user = userService.getUserWithAuthorities();
-        Optional<BooksterUser> requestFrom = booksterUserService.findByUser(user);
-        if (!requestFrom.isPresent()) {
+        Optional<BooksterUser> requestFromOptional = booksterUserService.findByUser(user);
+        if (!requestFromOptional.isPresent()) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlertMessage("booksterUser", "The current logged in user does not have a booksterUser")).body(null);
         }
 
@@ -92,7 +92,8 @@ public class MarketResource {
         //TODO sent Email
         BooksterUser owner = copy.getBooksterUser();
 
-        lendingRequest.setBooksterUser(requestFrom.get());
+        BooksterUser requestFrom = requestFromOptional.get();
+        lendingRequest.setBooksterUser(requestFrom);
         lendingRequest.setCopie(copy);
         lendingRequest.setStatus(RequestStatus.PENDING);
         lendingRequestService.save(lendingRequest);
