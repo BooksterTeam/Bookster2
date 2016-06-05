@@ -1,10 +1,7 @@
 package io.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import io.bookster.domain.BooksterUser;
-import io.bookster.domain.Lending;
-import io.bookster.domain.LendingRequest;
-import io.bookster.domain.User;
+import io.bookster.domain.*;
 import io.bookster.service.*;
 import io.bookster.web.rest.dto.DashboardDTO;
 import io.bookster.web.rest.util.HeaderUtil;
@@ -70,8 +67,9 @@ public class DashboardResource {
         BooksterUser booksterUser = requestFrom.get();
         List<LendingRequest> lendingRequests = lendingRequestService.getAllLendingRequestsByUser(booksterUser);
         List<Lending> lendings = lendingService.getAllLendingsByUser(booksterUser);
+        List<Copy> copies = copyService.getAllCopiesByUser(booksterUser);
 
-        return new ResponseEntity<>(new DashboardDTO(lendingRequests, lendings), null, HttpStatus.OK);
+        return new ResponseEntity<>(new DashboardDTO(lendingRequests, lendings, copies), null, HttpStatus.OK);
     }
 
 

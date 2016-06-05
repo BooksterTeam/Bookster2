@@ -26,6 +26,7 @@
                     $translatePartialLoader.addPart('home');
                     $translatePartialLoader.addPart('lendingRequest');
                     $translatePartialLoader.addPart('lending');
+                    $translatePartialLoader.addPart('copy');
                     $translatePartialLoader.addPart('requestStatus');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();

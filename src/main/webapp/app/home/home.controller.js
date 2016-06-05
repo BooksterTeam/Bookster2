@@ -31,6 +31,7 @@
             DashLendingRequest.get(function (data) {
                 vm.lendingRequests = data.lendingRequests;
                 vm.lendings = data.lendings;
+                vm.copies = data.copies;
             });
         }
         $scope.loadLendingRequests();

@@ -1,5 +1,6 @@
 package io.bookster.service;
 
+import io.bookster.domain.BooksterUser;
 import io.bookster.domain.Copy;
 import io.bookster.repository.CopyRepository;
 import io.bookster.repository.search.CopySearchRepository;
@@ -7,15 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * Service Implementation for managing Copy.
@@ -25,16 +25,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class CopyService {
 
     private final Logger log = LoggerFactory.getLogger(CopyService.class);
-    
+
     @Inject
     private CopyRepository copyRepository;
-    
+
     @Inject
     private CopySearchRepository copySearchRepository;
-    
+
     /**
      * Save a copy.
-     * 
+     *
      * @param copy the entity to save
      * @return the persisted entity
      */
@@ -46,25 +46,25 @@ public class CopyService {
     }
 
     /**
-     *  Get all the copies.
-     *  
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * Get all the copies.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Copy> findAll(Pageable pageable) {
         log.debug("Request to get all Copies");
-        Page<Copy> result = copyRepository.findAll(pageable); 
+        Page<Copy> result = copyRepository.findAll(pageable);
         return result;
     }
 
     /**
-     *  Get one copy by id.
+     * Get one copy by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Copy findOne(Long id) {
         log.debug("Request to get Copy : {}", id);
         Copy copy = copyRepository.findOne(id);
@@ -72,9 +72,9 @@ public class CopyService {
     }
 
     /**
-     *  Delete the  copy by id.
-     *  
-     *  @param id the id of the entity
+     * Delete the  copy by id.
+     *
+     * @param id the id of the entity
      */
     public void delete(Long id) {
         log.debug("Request to delete Copy : {}", id);
@@ -85,12 +85,19 @@ public class CopyService {
     /**
      * Search for the copy corresponding to the query.
      *
-     *  @param query the query of the search
-     *  @return the list of entities
+     * @param query the query of the search
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
     public Page<Copy> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Copies for query {}", query);
         return copySearchRepository.search(queryStringQuery(query), pageable);
+    }
+
+    public List<Copy> getAllCopiesByUser(BooksterUser booksterUser) {
+        log.info("Request copies of user {}", booksterUser.getUser().getLogin());
+        return copyRepository.findAll().stream()
+                .filter(copy -> copy.getBooksterUser().getId().equals(booksterUser.getId()))
+                .collect(Collectors.toList());
     }
 }
