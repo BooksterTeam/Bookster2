@@ -1,41 +1,90 @@
 <div ng-cloak>
-    <div class="row">
-        <div class="col-md-4">
-            <span class="hipster img-responsive img-rounded"></span>
-        </div>
-        <div class="col-md-8">
-            <h1 translate="home.title">Welcome, Java Hipster!</h1>
-            <p class="lead" translate="home.subtitle">This is your homepage</p>
-
-            <div ng-switch="vm.isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true" translate="home.logged.message" translate-values="{username: '{{vm.account.login}}'}">
-                    You are logged in as user "{{vm.account.login}}".
-                </div>
-
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.authenticated" translate-compile>
-                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-                </div>
-
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.register" translate-compile>
-                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
-                </div>
+    <div ng-switch="vm.isAuthenticated()">
+        <div ng-switch-when="true">
+            <h1>Welcome User!</h1>
+            <h2>Borrow Requests</h2>
+            <div class="table-responsive">
+                <table class="jh-table table table-striped">
+                    <thead>
+                    <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
+                        <th jh-sort-by="createdDate"><span translate="bookster2App.lendingRequest.createdDate">CreatedDate</span>
+                            <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="fromDate"><span translate="bookster2App.lendingRequest.fromDate">FromDate</span>
+                            <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="dueDate"><span translate="bookster2App.lendingRequest.dueDate">DueDate</span>
+                            <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="status"><span translate="bookster2App.lendingRequest.status">Status</span> <span
+                                class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="copie.id"><span translate="bookster2App.lendingRequest.copie">Copy</span> <span
+                                class="glyphicon glyphicon-sort"></span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody infinite-scroll="vm.loadPage(vm.page + 1)"
+                           infinite-scroll-disabled="vm.page >= vm.links['last']">
+                    <tr ng-repeat="lendingRequest in vm.lendingRequests track by lendingRequest.id">
+                        <td>{{lendingRequest.createdDate | date:'mediumDate'}}</td>
+                        <td>{{lendingRequest.fromDate | date:'mediumDate'}}</td>
+                        <td>{{lendingRequest.dueDate | date:'mediumDate'}}</td>
+                        <td translate="{{'bookster2App.RequestStatus.' + lendingRequest.status}}">
+                            {{lendingRequest.status}}
+                        </td>
+                        <td>
+                            <a ui-sref="copy-detail({id:lendingRequest.copie.id})">{{lendingRequest.copie.id}}</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+            <h2>Your Lendings</h2>
+            <h2>Your Copies</h2>
 
-            <p translate="home.question">
-                If you have any question on JHipster:
-            </p>
+        </div>
 
-            <ul>
-                <li><a href="http://jhipster.github.io/" target="_blank" translate="home.link.homepage">JHipster homepage</a></li>
-                <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" translate="home.link.stackoverflow">JHipster on Stack Overflow</a></li>
-                <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" translate="home.link.bugtracker">JHipster bug tracker</a></li>
-                <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" translate="home.link.chat">JHipster public chat room</a></li>
-                <li><a href="https://twitter.com/java_hipster" target="_blank"  translate="home.link.follow">follow @java_hipster on Twitter</a></li>
-            </ul>
+        <div ng-switch-when="false">
+            <div class="col-md-4">
+                <span class="hipster img-responsive img-rounded"></span>
+            </div>
+            <div class="col-md-8">
+                <h1 translate="home.title">Welcome, Java Hipster!</h1>
+                <p class="lead" translate="home.subtitle">This is your homepage</p>
 
-            <p>
-             <span translate="home.like">If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank" translate="home.github">Github</a>!
-            </p>
+
+                <div class="alert alert-warning" translate="global.messages.info.authenticated" translate-compile>
+                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try
+                    the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User
+                    (login="user" and password="user").
+                </div>
+
+                <div class="alert alert-warning" translate="global.messages.info.register" translate-compile>
+                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new
+                    account</a>
+                </div>
+
+
+                <p translate="home.question">
+                    If you have any question on JHipster:
+                </p>
+
+                <ul>
+                    <li><a href="http://jhipster.github.io/" target="_blank" translate="home.link.homepage">JHipster
+                        homepage</a></li>
+                    <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank"
+                           translate="home.link.stackoverflow">JHipster on Stack Overflow</a></li>
+                    <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank"
+                           translate="home.link.bugtracker">JHipster bug tracker</a></li>
+                    <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank"
+                           translate="home.link.chat">JHipster public chat room</a></li>
+                    <li><a href="https://twitter.com/java_hipster" target="_blank" translate="home.link.follow">follow
+                        @java_hipster on Twitter</a></li>
+                </ul>
+
+                <p>
+                    <span translate="home.like">If you like JHipster, don't forget to give us a star on </span>&nbsp;<a
+                        href="https://github.com/jhipster/generator-jhipster" target="_blank"
+                        translate="home.github">Github</a>!
+                </p>
+            </div>
         </div>
     </div>
 </div>

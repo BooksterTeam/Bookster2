@@ -10,7 +10,7 @@
     function BooksterUserDialogController ($scope, $stateParams, $uibModalInstance, $q, entity, BooksterUser, LendingRequest, Copy, Lending, User) {
         var vm = this;
         vm.booksterUser = entity;
-        vm.lendingrequests = LendingRequest.query();
+        vm.lendingRequests = LendingRequest.query();
         vm.copys = Copy.query();
         vm.lendings = Lending.query();
         vm.users = User.query();
