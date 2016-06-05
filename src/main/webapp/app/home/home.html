@@ -37,6 +37,27 @@
                 </table>
             </div>
             <h2>Your Lendings</h2>
+            <div class="table-responsive">
+                <table class="jh-table table table-striped">
+                    <thead>
+                    <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
+                        <th jh-sort-by="fromDate"><span translate="bookster2App.lending.fromDate">FromDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="dueDate"><span translate="bookster2App.lending.dueDate">DueDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="copy.id"><span translate="bookster2App.lending.copy">copy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+                    <tr ng-repeat="lending in vm.lendings track by lending.id">
+                        <td>{{lending.fromDate | date:'mediumDate'}}</td>
+                        <td>{{lending.dueDate | date:'mediumDate'}}</td>
+                        <td>
+                            <a ui-sref="copy-detail({id:lending.copy.id})">{{lending.copy.id}}</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <h2>Your Copies</h2>
 
         </div>

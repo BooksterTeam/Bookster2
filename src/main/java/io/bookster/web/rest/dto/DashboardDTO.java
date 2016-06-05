@@ -1,5 +1,6 @@
 package io.bookster.web.rest.dto;
 
+import io.bookster.domain.Lending;
 import io.bookster.domain.LendingRequest;
 
 import java.util.ArrayList;
@@ -13,12 +14,22 @@ public class DashboardDTO {
 
     private List<LendingRequest> lendingRequests = new ArrayList<>();
 
-
+    private List<Lending> lendings = new ArrayList<>();
     public DashboardDTO() {
     }
 
-    public DashboardDTO(List<LendingRequest> lendingRequests) {
+    public DashboardDTO(List<LendingRequest> lendingRequests, List<Lending> lendings) {
         this.lendingRequests = lendingRequests;
+        this.lendings = lendings;
+    }
+
+
+    public List<Lending> getLendings() {
+        return lendings;
+    }
+
+    public void setLendings(List<Lending> lendings) {
+        this.lendings = lendings;
     }
 
     public List<LendingRequest> getLendingRequests() {

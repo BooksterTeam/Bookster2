@@ -30,6 +30,7 @@
         $scope.loadLendingRequests = function(){
             DashLendingRequest.get(function (data) {
                 vm.lendingRequests = data.lendingRequests;
+                vm.lendings = data.lendings;
             });
         }
         $scope.loadLendingRequests();
