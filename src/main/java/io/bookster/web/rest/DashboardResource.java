@@ -76,9 +76,11 @@ public class DashboardResource {
 
         List<CopyDashDTO> copiesDash = copies.stream().map(copy -> {
 
+            if (copy.isAvailable()) {
                 return new CopyDashDTO(copy.getId(), copy.getBook(), copy.isAvailable());
+            }
 
-            //    return new CopyDashDTO(copy.getBook(), lendingRequestService.findByCopy(copy), copy.isAvailable());
+            return new CopyDashDTO(copy.getBook(), lendingRequestService.findByCopy(copy), copy.isAvailable());
         }).collect(Collectors.toList());
 
         return new ResponseEntity<>(new DashboardDTO(externLendingRequests, lendingRequests, lendings, copiesDash), null, HttpStatus.OK);

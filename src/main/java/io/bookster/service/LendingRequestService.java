@@ -104,10 +104,19 @@ public class LendingRequestService {
                 .collect(Collectors.toList());
     }
 
+
+
+    //TODO find better solution!!!
     public LendingRequest findByCopy(Copy copy) {
-        Optional<LendingRequest> first = lendingRequestRepository.findAll().stream().filter(lendingRequest -> lendingRequest.getCopie().equals(copy.getId())).findFirst();
-        if (first.isPresent()) {
-            return first.get();
+        try {
+            Optional<LendingRequest> first = lendingRequestRepository.findAll().stream()
+                    .filter(lendingRequest -> !lendingRequest.getCopie().equals(null))
+                    .filter(lendingRequest -> lendingRequest.getCopie().equals(copy.getId())).findFirst();
+            if (first.isPresent()) {
+                return first.get();
+            }
+        }catch(Exception e){
+
         }
         return new LendingRequest();
     }
