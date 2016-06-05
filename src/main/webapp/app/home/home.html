@@ -1,8 +1,57 @@
 <div ng-cloak>
+    <jhi-alert></jhi-alert>
     <div ng-switch="vm.isAuthenticated()">
         <div ng-switch-when="true">
             <h1>Welcome User!</h1>
-            <h2>Borrow Requests</h2>
+            <h2>Extern Borrow Requests</h2>
+            <div class="table-responsive">
+                <table class="jh-table table table-striped">
+                    <thead>
+                    <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
+                        <th jh-sort-by="createdDate"><span translate="bookster2App.lendingRequest.createdDate">CreatedDate</span>
+                            <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="fromDate"><span translate="bookster2App.lendingRequest.fromDate">FromDate</span>
+                            <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="dueDate"><span translate="bookster2App.lendingRequest.dueDate">DueDate</span>
+                            <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="status"><span translate="bookster2App.lendingRequest.status">Status</span> <span
+                                class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="copie.id"><span translate="bookster2App.lendingRequest.copie">Copy</span> <span
+                                class="glyphicon glyphicon-sort"></span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody infinite-scroll="vm.loadPage(vm.page + 1)"
+                           infinite-scroll-disabled="vm.page >= vm.links['last']">
+                    <tr ng-repeat="externLendingRequests in vm.externLendingRequests track by externLendingRequests.id">
+                        <td>{{externLendingRequests.createdDate | date:'mediumDate'}}</td>
+                        <td>{{externLendingRequests.fromDate | date:'mediumDate'}}</td>
+                        <td>{{externLendingRequests.dueDate | date:'mediumDate'}}</td>
+                        <td translate="{{'bookster2App.RequestStatus.' + externLendingRequests.status}}">
+                            {{externLendingRequests.status}}
+                        </td>
+                        <td>
+                            <a ui-sref="copy-detail({id:lendingRequest.copie.id})">{{externLendingRequests.copie.id}}</a>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+
+                                        class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </button>
+                                <button type="submit"
+                                        ui-sref="home.reject({id:externLendingRequests.id})"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Your Borrow Requests</h2>
             <div class="table-responsive">
                 <table class="jh-table table table-striped">
                     <thead>
@@ -41,13 +90,17 @@
                 <table class="jh-table table table-striped">
                     <thead>
                     <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
-                        <th jh-sort-by="fromDate"><span translate="bookster2App.lending.fromDate">FromDate</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="dueDate"><span translate="bookster2App.lending.dueDate">DueDate</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="copy.id"><span translate="bookster2App.lending.copy">copy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="fromDate"><span translate="bookster2App.lending.fromDate">FromDate</span> <span
+                                class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="dueDate"><span translate="bookster2App.lending.dueDate">DueDate</span> <span
+                                class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="copy.id"><span translate="bookster2App.lending.copy">copy</span> <span
+                                class="glyphicon glyphicon-sort"></span></th>
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+                    <tbody infinite-scroll="vm.loadPage(vm.page + 1)"
+                           infinite-scroll-disabled="vm.page >= vm.links['last']">
                     <tr ng-repeat="lending in vm.lendings track by lending.id">
                         <td>{{lending.fromDate | date:'mediumDate'}}</td>
                         <td>{{lending.dueDate | date:'mediumDate'}}</td>
@@ -63,22 +116,25 @@
                 <table class="jh-table table table-striped">
                     <thead>
                     <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                        <th jh-sort-by="available"><span translate="bookster2App.copy.available">Available</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="book.id"><span translate="bookster2App.copy.book">book</span> <span class="glyphicon glyphicon-sort"></span></th>
-                        <th jh-sort-by="booksterUser.id"><span translate="bookster2App.copy.booksterUser">booksterUser</span> <span class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="available"><span translate="bookster2App.copy.available">Available</span> <span
+                                class="glyphicon glyphicon-sort"></span></th>
+                        <th jh-sort-by="book.id"><span translate="bookster2App.copy.book">book</span> <span
+                                class="glyphicon glyphicon-sort"></span></th>
+                        <th>Lending Request</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
+
+
                     <tr ng-repeat="copy in vm.copies track by copy.id">
                         <td>{{copy.available}}</td>
                         <td>
-                            <a ui-sref="book-detail({id:copy.book.id})">{{copy.book.id}}</a>
+                            <a ui-sref="book-detail({id:copy.book.id})">{{copy.book.title}}</a>
                         </td>
-                        <td>
-                            <a ui-sref="bookster-user-detail({id:copy.booksterUser.id})">{{copy.booksterUser.id}}</a>
-                        </td>
+                        <td></td>
                     </tr>
+
                     </tbody>
                 </table>
             </div>

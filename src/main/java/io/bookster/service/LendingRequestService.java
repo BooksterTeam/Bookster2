@@ -1,7 +1,9 @@
 package io.bookster.service;
 
 import io.bookster.domain.BooksterUser;
+import io.bookster.domain.Copy;
 import io.bookster.domain.LendingRequest;
+import io.bookster.domain.enumeration.RequestStatus;
 import io.bookster.repository.LendingRequestRepository;
 import io.bookster.repository.search.LendingRequestSearchRepository;
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
@@ -98,6 +101,21 @@ public class LendingRequestService {
     public List<LendingRequest> getAllLendingRequestsByUser(BooksterUser booksterUser) {
         return lendingRequestRepository.findAll().stream()
                 .filter(lendingRequest -> lendingRequest.getBooksterUser().getId().equals(booksterUser.getId()))
+                .collect(Collectors.toList());
+    }
+
+    public LendingRequest findByCopy(Copy copy) {
+        Optional<LendingRequest> first = lendingRequestRepository.findAll().stream().filter(lendingRequest -> lendingRequest.getCopie().equals(copy.getId())).findFirst();
+        if (first.isPresent()) {
+            return first.get();
+        }
+        return new LendingRequest();
+    }
+
+    public List<LendingRequest> getAllExternLendingRequestByUser(BooksterUser booksterUser) {
+        return lendingRequestRepository.findAll().stream()
+                .filter(lendingRequest -> lendingRequest.getStatus().equals(RequestStatus.PENDING))
+                .filter(lendingRequest -> lendingRequest.getCopie().getBooksterUser().getId().equals(booksterUser.getId()))
                 .collect(Collectors.toList());
     }
 }

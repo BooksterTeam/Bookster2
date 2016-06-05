@@ -1,6 +1,5 @@
 package io.bookster.web.rest.dto;
 
-import io.bookster.domain.Copy;
 import io.bookster.domain.Lending;
 import io.bookster.domain.LendingRequest;
 
@@ -17,20 +16,33 @@ public class DashboardDTO {
 
     private List<Lending> lendings = new ArrayList<>();
 
-    private List<Copy> copies = new ArrayList<>();
+    private List<CopyDashDTO> copies = new ArrayList<>();
 
-    public DashboardDTO(List<LendingRequest> lendingRequests, List<Lending> lendings, List<Copy> copies) {
+    private List<LendingRequest> externLendingRequests = new ArrayList<>();
+
+    public DashboardDTO() {
+    }
+
+    public DashboardDTO(List<LendingRequest> externLendingRequests, List<LendingRequest> lendingRequests, List<Lending> lendings, List<CopyDashDTO> copies) {
         this.lendingRequests = lendingRequests;
         this.lendings = lendings;
         this.copies = copies;
+        this.externLendingRequests = externLendingRequests;
     }
 
+    public List<LendingRequest> getExternLendingRequests() {
+        return externLendingRequests;
+    }
 
-    public List<Copy> getCopies() {
+    public void setExternLendingRequests(List<LendingRequest> externLendingRequests) {
+        this.externLendingRequests = externLendingRequests;
+    }
+
+    public List<CopyDashDTO> getCopies() {
         return copies;
     }
 
-    public void setCopies(List<Copy> copies) {
+    public void setCopies(List<CopyDashDTO> copies) {
         this.copies = copies;
     }
 

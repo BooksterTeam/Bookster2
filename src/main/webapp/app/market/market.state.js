@@ -60,34 +60,34 @@
           authorities: ['ROLE_USER']
         },
         onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-          $uibModal.open({
-            templateUrl: 'app/market/market-dialog.html',
-            controller: 'MarketDialogController',
-            controllerAs: 'vm',
-            backdrop: 'static',
-            size: 'lg',
-            resolve: {
-              translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                $translatePartialLoader.addPart('book');
-                $translatePartialLoader.addPart('copy');
-                $translatePartialLoader.addPart('lending');
-                $translatePartialLoader.addPart('lendingRequest');
-                return $translate.refresh();
-              }],
-              entity: ['Copy','$log', function(Copy, $log) {
-                $log.log($stateParams)
-                var copi = Copy.get({id : $stateParams.copyId});
-                var res = {
-                  bookId: $stateParams.id,
-                  copyId: $stateParams.copyId,
-                  copi: copi
-                }
-                return res;
-              }]
-            }
-          }).result.then(function() {
-            $state.go('market-detail', null, { reload: true });
-          }, function() {
+            $uibModal.open({
+              templateUrl: 'app/market/market-dialog.html',
+              controller: 'MarketDialogController',
+              controllerAs: 'vm',
+              backdrop: 'static',
+              size: 'lg',
+              resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                  $translatePartialLoader.addPart('book');
+                  $translatePartialLoader.addPart('copy');
+                  $translatePartialLoader.addPart('lending');
+                  $translatePartialLoader.addPart('lendingRequest');
+                  return $translate.refresh();
+                }],
+                entity: ['Copy','$log', function(Copy, $log) {
+                  $log.log($stateParams)
+                  var copi = Copy.get({id : $stateParams.copyId});
+                  var res = {
+                    bookId: $stateParams.id,
+                    copyId: $stateParams.copyId,
+                    copi: copi
+                  }
+                  return res;
+                }]
+              }
+            }).result.then(function() {
+              $state.go('market-detail', null, { reload: true });
+            }, function() {
             $state.go('market-detail');
           });
         }]

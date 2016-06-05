@@ -2,7 +2,9 @@ package io.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import io.bookster.domain.*;
+import io.bookster.domain.enumeration.RequestStatus;
 import io.bookster.service.*;
+import io.bookster.web.rest.dto.CopyDashDTO;
 import io.bookster.web.rest.dto.DashboardDTO;
 import io.bookster.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +21,7 @@ import javax.inject.Inject;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing LendingRequest.
@@ -65,11 +69,41 @@ public class DashboardResource {
         }
 
         BooksterUser booksterUser = requestFrom.get();
+        List<LendingRequest> externLendingRequests = lendingRequestService.getAllExternLendingRequestByUser(booksterUser);
         List<LendingRequest> lendingRequests = lendingRequestService.getAllLendingRequestsByUser(booksterUser);
         List<Lending> lendings = lendingService.getAllLendingsByUser(booksterUser);
         List<Copy> copies = copyService.getAllCopiesByUser(booksterUser);
 
-        return new ResponseEntity<>(new DashboardDTO(lendingRequests, lendings, copies), null, HttpStatus.OK);
+        List<CopyDashDTO> copiesDash = copies.stream().map(copy -> {
+
+                return new CopyDashDTO(copy.getId(), copy.getBook(), copy.isAvailable());
+
+            //    return new CopyDashDTO(copy.getBook(), lendingRequestService.findByCopy(copy), copy.isAvailable());
+        }).collect(Collectors.toList());
+
+        return new ResponseEntity<>(new DashboardDTO(externLendingRequests, lendingRequests, lendings, copiesDash), null, HttpStatus.OK);
+    }
+
+    /**
+     * POST  /lending-requests : Create a new lendingRequest.
+     *
+     * @return the ResponseEntity with status 201 (Created) and with body the new lendingRequest, or with status 400 (Bad Request) if the lendingRequest has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @RequestMapping(value = "/dashboard/reject",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity rejectLendingRequest(@RequestBody LendingRequest lendingRequest) throws URISyntaxException {
+        log.info("{}", lendingRequest);
+        lendingRequest.setStatus(RequestStatus.REJECTED);
+        Copy copy = lendingRequest.getCopie();
+        copy.setAvailable(true);
+        copyService.save(copy);
+        lendingRequest.setCopie(null);
+        lendingRequestService.save(lendingRequest);
+        //TODO mail service send email
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Successfully rejected the request", "Success")).body(null);
     }
 
 

@@ -32,8 +32,12 @@
                 vm.lendingRequests = data.lendingRequests;
                 vm.lendings = data.lendings;
                 vm.copies = data.copies;
+                vm.externLendingRequests = data.externLendingRequests;
+                $log.log("here")
+                $log.log(data)
             });
         }
+        
         $scope.loadLendingRequests();
     }
 })();
