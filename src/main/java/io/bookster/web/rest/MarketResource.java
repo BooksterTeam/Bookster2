@@ -97,8 +97,6 @@ public class MarketResource {
         lendingRequest.setCopie(copy);
         lendingRequest.setStatus(RequestStatus.PENDING);
         lendingRequestService.save(lendingRequest);
-        requestFrom.getFroms().add(lendingRequest);
-        booksterUserService.save(requestFrom);
 
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("Successfully created the request", "Success")).body(lendingRequest);
     }
