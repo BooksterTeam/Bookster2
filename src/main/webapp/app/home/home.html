@@ -2,7 +2,7 @@
     <jhi-alert></jhi-alert>
     <div ng-switch="vm.isAuthenticated()">
         <div ng-switch-when="true">
-            <h1>Welcome User!</h1>
+            <h1>Welcome {{vm.account.firstName}}!</h1>
             <h2>Extern Borrow Requests</h2>
             <div class="table-responsive">
                 <table class="jh-table table table-striped">
@@ -121,7 +121,6 @@
                         <th jh-sort-by="book.id"><span translate="bookster2App.copy.book">book</span> <span
                                 class="glyphicon glyphicon-sort"></span></th>
                         <th>Lending Request</th>
-                        <th>{{vm.copies}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -132,7 +131,7 @@
                         <td>
                             <a ui-sref="book-detail({id:copy.book.id})">{{copy.book.title}}</a>
                         </td>
-                        <td></td>
+                        <td><a ui-sref="lending-request-detail({id:copy.lendingRequest.id})">{{copy.lendingRequest.id}}</a></td>
                     </tr>
 
                     </tbody>

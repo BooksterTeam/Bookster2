@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
@@ -105,20 +106,19 @@ public class LendingRequestService {
     }
 
 
-
     //TODO find better solution!!!
     public LendingRequest findByCopy(Copy copy) {
-        try {
-            Optional<LendingRequest> first = lendingRequestRepository.findAll().stream()
-                    .filter(lendingRequest -> !lendingRequest.getCopie().equals(null))
-                    .filter(lendingRequest -> lendingRequest.getCopie().equals(copy.getId())).findFirst();
-            if (first.isPresent()) {
-                return first.get();
-            }
-        }catch(Exception e){
+        List<LendingRequest> lendingRequests = lendingRequestRepository.findAll().stream()
+                .filter(lendingRequest -> !lendingRequest.getCopie().equals(null)).collect(Collectors.toList());
 
+        Optional<LendingRequest> first = lendingRequests.stream().filter(lendingRequest -> lendingRequest.getCopie().equals(copy)).findFirst();
+        if (first.isPresent()) {
+            return first.get();
+        } else {
+            log.info("Did not find a lendingrequest to this copy");
+            return new LendingRequest();
         }
-        return new LendingRequest();
+
     }
 
     public List<LendingRequest> getAllExternLendingRequestByUser(BooksterUser booksterUser) {

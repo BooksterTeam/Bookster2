@@ -81,7 +81,7 @@ public class DashboardResource {
                 return new CopyDashDTO(copy.getId(), copy.getBook(), copy.isAvailable());
             }
 
-            return new CopyDashDTO(copy.getId(), copy.getBook(),copy.isAvailable(), lendingRequestService.findByCopy(copy).getBooksterUser());
+            return new CopyDashDTO(copy.getId(), copy.getBook(),copy.isAvailable(), lendingRequestService.findByCopy(copy));
         }).collect(Collectors.toList());
 
         return new ResponseEntity<>(new DashboardDTO(externLendingRequests, lendingRequests, lendings, copiesDash), null, HttpStatus.OK);
