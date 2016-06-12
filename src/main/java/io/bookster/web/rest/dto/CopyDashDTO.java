@@ -1,6 +1,7 @@
 package io.bookster.web.rest.dto;
 
 import io.bookster.domain.Book;
+import io.bookster.domain.BooksterUser;
 import io.bookster.domain.LendingRequest;
 
 /**
@@ -8,6 +9,10 @@ import io.bookster.domain.LendingRequest;
  * author: nixoxo
  */
 public class CopyDashDTO {
+
+    public CopyDashDTO(Long id, Book book, Boolean available, BooksterUser booksterUser) {
+
+    }
 
     public Long getId() {
         return id;
@@ -20,15 +25,9 @@ public class CopyDashDTO {
     private Long id;
     private boolean available;
     private Book book;
-    //private LendingRequest lendingRequest;
+    private BooksterUser bookUser;
 
     public CopyDashDTO() {
-    }
-
-    public CopyDashDTO(Book book, LendingRequest lendingRequest, boolean available) {
-        this.book = book;
-        // this.lendingRequest = lendingRequest;
-        this.available = available;
     }
 
     public CopyDashDTO(Book book, Boolean available) {

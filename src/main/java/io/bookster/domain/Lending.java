@@ -40,6 +40,16 @@ public class Lending implements Serializable {
     @JoinColumn(unique = true)
     private Copy copy;
 
+    public Lending() {
+    }
+
+    public Lending(BooksterUser booksterUser, LocalDate fromDate, LocalDate dueDate, Copy copy) {
+        this.booksterUser = booksterUser;
+        this.fromDate = fromDate;
+        this.dueDate = dueDate;
+        this.copy = copy;
+    }
+
     public Long getId() {
         return id;
     }
