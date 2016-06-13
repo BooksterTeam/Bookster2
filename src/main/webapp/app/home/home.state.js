@@ -96,6 +96,38 @@
                     $state.go('home');
                 });
             }]
+        }).state('home.return', {
+            parent: 'home',
+            url: 'return?{id}',
+            data: {
+                authorities: []
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/home/return-dialog.html',
+                    controller: 'ReturnController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                            $translatePartialLoader.addPart('book');
+                            $translatePartialLoader.addPart('copy');
+                            $translatePartialLoader.addPart('lending');
+                            $translatePartialLoader.addPart('lendingRequest');
+                            return $translate.refresh();
+                        }],
+                        entity: ['Lending','$log', function(Lending, $log) {
+                            var lending = Lending.get({id: $stateParams.id})
+                            return lending;
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('home', null, { reload: true });
+                }, function() {
+                    $state.go('home');
+                });
+            }]
         });
     }
 })();
