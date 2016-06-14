@@ -67,8 +67,8 @@ public class BaseDriverIntegration {
     protected void authenticate(WebDriver browser) throws InterruptedException {
         browser.get(server);
         Thread.sleep(500);
-        browser.findElement(id("account-menu")).click();
-        browser.findElement(id("login")).click();
+    //    browser.findElement(id("account-menu")).click();
+//        browser.findElement(id("login")).click();
         browser.findElement(id("username")).sendKeys("admin");
         browser.findElement(id("password")).sendKeys("admin");
         WebElement loginForm = browser.findElement(id("login-button"));

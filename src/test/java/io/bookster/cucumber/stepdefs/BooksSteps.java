@@ -1,12 +1,15 @@
 package io.bookster.cucumber.stepdefs;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.bookster.config.BaseDriverIntegration;
+import org.hamcrest.Matchers;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.By.id;
 
@@ -43,5 +46,10 @@ public class BooksSteps extends BaseDriverIntegration {
     @After
     public void tearDown(){
         closeBrowser();
+    }
+
+    @Then("^no books are shown$")
+    public void noBooksAreShown() throws Throwable {
+
     }
 }
