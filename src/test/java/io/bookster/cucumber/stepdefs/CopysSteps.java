@@ -1,5 +1,6 @@
 package io.bookster.cucumber.stepdefs;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -46,5 +47,10 @@ public class CopysSteps extends BaseDriverIntegration {
     @After
     public void tearDown() throws Exception {
         closeBrowser();
+    }
+
+    @Then("^no copy has been added$")
+    public void noCopyHasBeenAdded() throws Throwable {
+        Thread.sleep(500);
     }
 }
