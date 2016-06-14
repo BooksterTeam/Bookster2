@@ -35,6 +35,7 @@ public class CopysSteps extends BaseDriverIntegration {
     public void addACopyForTheBookWithTheId(int bookid) throws Throwable {
         Thread.sleep(500);
         browser.findElement(id("field_book")).sendKeys("" + bookid);
+        browser.findElement(id("field_booksterUser")).sendKeys("3");
     }
 
     @Then("^a copy has been added$")
