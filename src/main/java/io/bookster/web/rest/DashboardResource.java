@@ -72,6 +72,7 @@ public class DashboardResource {
         List<LendingRequest> externLendingRequests = lendingRequestService.getAllExternLendingRequestByUser(booksterUser);
         List<LendingRequest> lendingRequests = lendingRequestService.getAllLendingRequestsByUser(booksterUser);
         List<Lending> lendings = lendingService.getAllLendingsByUser(booksterUser);
+
         List<Copy> copies = copyService.getAllCopiesByUser(booksterUser);
 
         List<CopyDashDTO> copiesDash = copies.stream().map(copy -> {
@@ -80,7 +81,7 @@ public class DashboardResource {
                 return new CopyDashDTO(copy.getId(), copy.getBook(), copy.isAvailable());
             }
 
-            return new CopyDashDTO(copy.getBook(), lendingRequestService.findByCopy(copy), copy.isAvailable());
+            return new CopyDashDTO(copy.getId(), copy.getBook(),copy.isAvailable(), lendingRequestService.findByCopy(copy));
         }).collect(Collectors.toList());
 
         return new ResponseEntity<>(new DashboardDTO(externLendingRequests, lendingRequests, lendings, copiesDash), null, HttpStatus.OK);
@@ -108,5 +109,62 @@ public class DashboardResource {
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("Successfully rejected the request", "Success")).body(null);
     }
 
+    /**
+     * POST  /lending-requests : Create a new lendingRequest.
+     *
+     * @return the ResponseEntity with status 201 (Created) and with body the new lendingRequest, or with status 400 (Bad Request) if the lendingRequest has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @RequestMapping(value = "/dashboard/accept",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity acceptLendingRequest(@RequestBody LendingRequest lendingRequest) throws URISyntaxException {
+        log.info("{}", lendingRequest);
+        BooksterUser booksterUser = lendingRequest.getBooksterUser();
+        Lending lending = new Lending(booksterUser, lendingRequest.getFromDate(), lendingRequest.getDueDate(), lendingRequest.getCopie());
+        lendingService.save(lending);
+        lendingRequest.setStatus(RequestStatus.ACCEPTED);
+        lendingRequestService.save(lendingRequest);
+
+        //TODO mail service send email
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Successfully accepted the request", "Success")).body(null);
+    }
+
+
+    /**
+     * POST  /lending-requests : Create a new lendingRequest.
+     *
+     * @return the ResponseEntity with status 201 (Created) and with body the new lendingRequest, or with status 400 (Bad Request) if the lendingRequest has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @RequestMapping(value = "/dashboard/return",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity returnLending(@RequestBody Lending lending) throws URISyntaxException {
+        log.info("{}", lending);
+        Lending one = lendingService.findOne(lending.getId());
+        Copy copy = one.getCopy();
+
+        copy.setAvailable(true);
+        copyService.save(copy);
+        LendingRequest lendingRequest = lendingRequestService.findByCopy(copy);
+        lendingRequestService.delete(lendingRequest.getId());
+
+        lending.setCopy(null);
+        lendingService.delete(lending.getId());
+
+
+        /*
+        BooksterUser booksterUser = lendingRequest.getBooksterUser();
+        Lending lending = new Lending(booksterUser, lendingRequest.getFromDate(), lendingRequest.getDueDate(), lendingRequest.getCopie());
+        lendingService.save(lending);
+        lendingRequest.setStatus(RequestStatus.ACCEPTED);
+        lendingRequestService.save(lendingRequest);
+
+        //TODO mail service send email */
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Successfully accepted the request", "Success")).body(null);
+    }
 
 }

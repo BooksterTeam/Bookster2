@@ -2,7 +2,7 @@
     <jhi-alert></jhi-alert>
     <div ng-switch="vm.isAuthenticated()">
         <div ng-switch-when="true">
-            <h1>Welcome User!</h1>
+            <h1>Welcome {{vm.account.firstName}}!</h1>
             <h2>Extern Borrow Requests</h2>
             <div class="table-responsive">
                 <table class="jh-table table table-striped">
@@ -36,7 +36,7 @@
                         <td class="text-right">
                             <div class="btn-group flex-btn-group-container">
                                 <button type="submit"
-
+                                        ui-sref="home.accept({id:externLendingRequests.id})"
                                         class="btn btn-info btn-sm">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
@@ -107,6 +107,14 @@
                         <td>
                             <a ui-sref="copy-detail({id:lending.copy.id})">{{lending.copy.id}}</a>
                         </td>
+                        <td>
+                            {{lending.id}}
+                            <button type="submit"
+                                    ui-sref="home.return({id:lending.id})"
+                                    class="btn btn-info btn-sm">
+                                Return
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -121,7 +129,6 @@
                         <th jh-sort-by="book.id"><span translate="bookster2App.copy.book">book</span> <span
                                 class="glyphicon glyphicon-sort"></span></th>
                         <th>Lending Request</th>
-                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -132,7 +139,9 @@
                         <td>
                             <a ui-sref="book-detail({id:copy.book.id})">{{copy.book.title}}</a>
                         </td>
-                        <td></td>
+                        <td>
+                            <a ui-sref="lending-request-detail({id:copy.lendingRequest.id})">{{copy.lendingRequest.id}}</a>
+                        </td>
                     </tr>
 
                     </tbody>

@@ -2,6 +2,7 @@ package io.bookster.service;
 
 import io.bookster.domain.BooksterUser;
 import io.bookster.domain.Copy;
+import io.bookster.domain.Lending;
 import io.bookster.repository.CopyRepository;
 import io.bookster.repository.search.CopySearchRepository;
 import org.slf4j.Logger;
