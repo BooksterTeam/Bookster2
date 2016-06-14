@@ -149,6 +149,9 @@ public class DashboardResource {
 
         copy.setAvailable(true);
         copyService.save(copy);
+        LendingRequest lendingRequest = lendingRequestService.findByCopy(copy);
+        lendingRequestService.delete(lendingRequest.getId());
+
         lending.setCopy(null);
         lendingService.delete(lending.getId());
 
