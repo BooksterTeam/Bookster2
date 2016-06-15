@@ -171,8 +171,7 @@ public class BookResourceIntTest {
                 .andExpect(jsonPath("$.[*].year").value(hasItem(DEFAULT_YEAR)));
     }
 
-    @Test
-    @Transactional
+
     public void getBook() throws Exception {
         // Initialize the database
         bookRepository.saveAndFlush(book);
@@ -188,8 +187,8 @@ public class BookResourceIntTest {
             .andExpect(jsonPath("$.year").value(DEFAULT_YEAR));
     }
 
-    @Test
-    @Transactional
+
+
     public void getNonExistingBook() throws Exception {
         // Get the book
         restBookMockMvc.perform(get("/api/books/{id}", Long.MAX_VALUE))

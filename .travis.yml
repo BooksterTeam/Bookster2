@@ -15,6 +15,7 @@ before_install:
   - touch ~/.ssh/known_hosts
 
 script:
+  - ./gradlew test jacocoTestReport
   - ./gradlew -Pdev bootrepackage
 
 notifications:

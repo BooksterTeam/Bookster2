@@ -49,6 +49,7 @@ bootRun {
 test {
     include '**/*UnitTest*'
     include '**/*IntTest*'
+    exclude  'io/bookster/cucumber'
 
     ignoreFailures true
     reports.html.enabled = false
