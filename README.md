@@ -7,7 +7,7 @@
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
 
-A simple instruction for installation can be found in the following blog article [http://trustmeiaman.engineer/2016/06/15/week-2-10-installation/](Installation)
+A simple instruction for installation can be found in the following blog article [Installation](http://trustmeiaman.engineer/2016/06/15/week-2-10-installation/)
 
 ## Development
 
